@@ -40,7 +40,7 @@ paths:
         - schema:
             type: string
           in: query
-      description: 'Plaats een bestelling voor een tolk of vertaler '
+      description: Plaats een bestelling voor een tolk of vertaler bij Intermediair
       requestBody:
         content:
           application/json:
@@ -64,7 +64,42 @@ paths:
       tags: []
       responses: {}
       operationId: get-matches
-  /bestellingen:
+    post:
+      summary: ''
+      operationId: post-matches
+      responses:
+        '200':
+          description: Successfully read the data you requested
+        '201':
+          description: Successfully wrote the data you sent
+        '401':
+          description: Authentication is missing or incorrect
+        '403':
+          description: 'Authentication succeeded, but the user does not have access to the resource'
+        '404':
+          description: 'The resource cannot be found, client-side error'
+        '500':
+          description: There was an error on the server-side
+      description: 'Geef matchingsinfo door aan Besteller  [? hoe Referentie opdrachtgever en nog 15 andere velden vanuit Bestelling Model op te nemen?]'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Matching'
+          application/xml:
+            schema:
+              type: object
+              properties: {}
+          multipart/form-data:
+            schema:
+              type: object
+              properties: {}
+      parameters:
+        - schema:
+            type: string
+          in: header
+    parameters: []
+  '':
     parameters:
       - required: true
 components:
@@ -95,6 +130,7 @@ components:
         Soort tolkdienst:
           type: string
           description: |+
+            (alleen bij Tolken verplicht)
             "Mogelijkheden nu: ""telefonisch ad hoc""; ""telefonisch gepland""; ""op locatie"".
             Mogelijk latere opties: ""conference call""; ""video conference""" "Afhankelijk van kavelverdeling organisatie en autorisatie
             1 kavel: vastleggen
@@ -150,6 +186,7 @@ components:
         Naam gespreksvoerder:
           type: string
           description: |+
+            (alleen bij reguliere tolk bestelling verplicht, niet voor ad-hoc aanvraag)
             "Voor- + achternaam v.d. gespreksvoerder
             Kan ook alias zijn". "Is de 'naam aanvrager' als gespreksvoerder de aanvraag doet. Kan ook alias zijn"
 
@@ -186,12 +223,14 @@ components:
         Datum/tijd gepland begin:
           type: string
           description: |+
+            (alleen bij reguliere tolk-aanvraag verplicht, niet bij vertalen, of ad-hoc tolk-aanvraag)
             De datum/tijd van het geplande begin van de tolkdienst. Door besteller in te vullen
 
 
         Datum/tijd gepland eind:
           type: string
           description: |+
+            (alleen bij reguliere tolk-aanvraag verplicht, niet bij vertalen, of ad-hoc tolk-aanvraag)
             De datum/tijd van het geplande einde van de tolkdienst. Door besteller in te vullen
 
 
@@ -216,6 +255,7 @@ components:
         Gesprekslocatie:
           type: string
           description: |+
+            (alleen bij tolken verplicht, niet bij vertalen)
             In geval van tolken op locatie de locatie- & contactgegevens voor het te tolken gesprek. Door besteller in te vullen
 
 
@@ -228,7 +268,6 @@ components:
       required:
         - Organisatie opdrachtgever
         - Soort tolk (tolken/vertalen)
-        - Soort tolkdienst
         - Taal
         - Taalniveau
         - Organisatie-eenheid opdrachtgever
@@ -236,15 +275,12 @@ components:
         - Naam aanvrager
         - Telefoonnummer aanvrager
         - Email aanvrager
-        - Naam gespreksvoerder
+        - Referentie opdrachtgever
         - Datum/tijd bestelling
-        - Datum/tijd gepland begin
-        - Datum/tijd gepland eind
-        - Geslacht (voorkeur)
     Matching:
       title: Matching
       type: object
-      description: Matchingsvelden bij het matchen tussen geplaatste bestelling en wat voorradig is
+      description: Matchingsvelden bij het matchen tussen geplaatste bestelling en wat voorradig is.
       properties:
         Inbelnummer:
           type: string
@@ -284,10 +320,51 @@ components:
             Het Rbtv nummer van de tolk of vertaler. Uit systeem Rbtv of geen invoer
 
 
+        Referentie opdrachtgever:
+          oneOf:
+            - $ref: '#/components/schemas/Bestelling'
+          description: Referentie Opdrachtgever alleen nodig uit /Bestelling
       required:
         - Referentie intermediair
         - Naam tolk/vertaler
         - Rbtv nr.tolk/vertaler
+    Leveren-Akkoord:
+      title: Leveren-Akkoord
+      type: object
+      description: 'De daadwerkelijke leveringsgegevens van de tolk-/vertaaldienst èn vervolgens de akkordering van de bestelorganisatie. [Hoe 2 velden van Matching mee te geven?]'
+      properties:
+        Vertaaltariefeenheid:
+          type: string
+          description: |
+            verplicht voor vertalen. De aanbesteding afgesproken vertaal tariefeenheid
+        Vertaalaantal:
+          type: string
+          description: |
+            Alleen bij vertalen van belang: het vertaalde volume
+        Datum/tijd begin:
+          type: string
+          description: |
+            verplicht voor vertolken.
+            De datum/tijd dat de tolkdienst daadwerkelijk is gestart.
+             "Uit systeem service provider/intermediair (op afstand)
+            Door tolk in te vullen (op locatie)"
+        Datum/tijd eind:
+          type: string
+          description: "verplicht voor vertolken. \nDe datum/tijd dat de tolkdienst daadwerkelijk is geeindigd.\n\"Uit systeem service provider/intermediair (op afstand)\nDoor tolk in te vullen (op locatie)\"\n "
+        Functie fiatteerder:
+          type: string
+          description: "verplicht voor vertolken. De functie van de fiatteerder van de bestelorganisatie. \nDoor fiatteerder in te vullen "
+        Naam fiatteerder:
+          type: string
+          description: |
+            verplicht voor vertolken. De naam van de fiatteerder van de bestelorganisatie.
+            Door fiatteerder in te vullen
+        'Handtekening ':
+          type: string
+          description: |-
+            Verplicht voor vertolken.
+            Door fiatteerder in te vullen.
+            Mag een elektronische handtekening zijn maar ook handmatig.
   securitySchemes:
     API Key - 1:
       name: API Key
