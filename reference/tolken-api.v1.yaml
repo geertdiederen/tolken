@@ -8,7 +8,7 @@ info:
 servers:
   - url: 'http://localhost:3000'
 paths:
-  /bestellingen:
+  /bestellingen/:
     get:
       summary: Your GET endpoint
       tags: []
@@ -21,6 +21,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Bestelling'
+              examples:
+                example-1: {}
             application/xml:
               schema:
                 type: object
@@ -28,6 +30,14 @@ paths:
             text/plain:
               schema:
                 type: object
+            multipart/form-data:
+              schema:
+                type: object
+                properties: {}
+            text/html:
+              schema:
+                type: object
+                properties: {}
           headers: {}
       operationId: get-bestellingen
     parameters: []
@@ -58,6 +68,10 @@ paths:
           text/html:
             schema:
               $ref: '#/components/schemas/Bestelling'
+          multipart/form-data:
+            schema:
+              type: object
+              properties: {}
         description: Plaats een bestelling
   /matches:
     get:
@@ -65,13 +79,16 @@ paths:
       tags: []
       responses: {}
       operationId: get-matches
+  /bestellingen:
+    parameters:
+      - required: true
 components:
   schemas:
     Bestelling:
       title: Bestelling
       x-examples:
         example-1: {}
-      description: Bestelling velden Gegevensset Tolk- en Vertaaldiensten
+      description: Bestellingsvelden Gegevensset Tolk- en Vertaaldiensten. Elke tolk-/vertaaldienst begint met het bestellen van een tolkdienst. In deze stap levert de besteller alle noodzakelijke gegevens voor het leveren van een tolkdienst. Onder deze stap wordt ook het wijzigen en annuleren van een bestelling verstaan.
       type: object
       properties:
         Organisatie opdrachtgever:
@@ -113,6 +130,9 @@ components:
             Het benodigde taalniveau voor de opdracht. Door besteller in te vullen
 
 
+          enum:
+            - B2
+            - C1
         Specialisme/vaardigheid:
           type: string
           description: "\"Relevante kavelcriteria: Medisch advies (IND); AG, GGD, Zorg (COA)\nMogelijk andere: Keuze uit gerechtstolk (OM) , gezondheidstolk (DJI), RvdK-tolk (RvdK), andere? Dit door intermediair te administreren want staat niet in RBTV! \nNB nu alleen specialisme voor gerechtstolk in RBTV! \"\n\nUit lijst of vrij tekstveld?\n\n"
@@ -195,6 +215,9 @@ components:
           description: |
             "De bestelling kan worden voorzien van de opmerking dat de dienst met spoed dient te worden geleverd."
             Door besteller in te vullen
+          enum:
+            - Nee
+            - Ja
         Geslacht (voorkeur):
           type: string
           description: |+
@@ -217,6 +240,22 @@ components:
             Extra informatie die voor de tolk/vertaler van belang is. Door besteller in te vullen
 
 
+      required:
+        - Organisatie opdrachtgever
+        - Soort tolk (tolken/vertalen)
+        - Soort tolkdienst
+        - Taal
+        - Taalniveau
+        - Organisatie-eenheid opdrachtgever
+        - Registratienummer opdrachtgever
+        - Naam aanvrager
+        - Telefoonnummer aanvrager
+        - Email aanvrager
+        - Naam gespreksvoerder
+        - Datum/tijd bestelling
+        - Datum/tijd gepland begin
+        - Datum/tijd gepland eind
+        - Geslacht (voorkeur)
     Matching:
       title: Matching
       type: object
