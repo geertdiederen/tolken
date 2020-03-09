@@ -1,0 +1,76 @@
+openapi: 3.0.0
+info:
+  title: tolken api
+  version: '1.0'
+  description: API voor gegevensuitwisseling tussen rijksonderdelen en tolken intermediairs
+  contact:
+    name: Geert Diederen
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /bestellingen:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Bestelling'
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+            text/plain:
+              schema:
+                type: object
+          headers: {}
+      operationId: get-bestellingen
+    parameters: []
+    post:
+      summary: ''
+      operationId: post-bestellingen
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+      parameters:
+        - schema:
+            type: string
+          in: query
+      description: ''
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+components:
+  schemas:
+    Bestelling:
+      title: Bestelling
+      type: object
+      x-examples:
+        example-1: {}
+      properties:
+        id:
+          type: string
+        organisatie opdrachtgever:
+          type: string
+        regio:
+          type: string
+        '':
+          type: string
+      required:
+        - id
+  securitySchemes:
+    API Key - 1:
+      name: API Key
+      type: apiKey
+      in: query
