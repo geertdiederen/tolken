@@ -280,7 +280,7 @@ components:
     Matching:
       title: Matching
       type: object
-      description: Matchingsvelden bij het matchen tussen geplaatste bestelling en wat voorradig is.
+      description: "Matchingsvelden die doorgegeven worden aan besteller na het matchen tussen geplaatste bestellingsverzoek en wat beschikbaar is bij Intermediair. N.B.: De velden die '(Bestelling)' achter zich hebben staan duiden op eerder (mogelijk) opgegeven velden bij het plaatsen van de bestelling en die bij aanwezigheid meegegeven worden richting besteller."
       properties:
         Inbelnummer:
           type: string
@@ -320,16 +320,61 @@ components:
             Het Rbtv nummer van de tolk of vertaler. Uit systeem Rbtv of geen invoer
 
 
-        Referentie opdrachtgever:
-          oneOf:
-            - $ref: '#/components/schemas/Bestelling'
-          description: Referentie Opdrachtgever alleen nodig uit /Bestelling
+        Soort tolkdienst (Bestelling):
+          type: string
+          description: |
+            zie bestelling
+        Taal (Bestelling):
+          type: string
+          description: |
+            zie bestelling
+        Taalniveau (Bestelling):
+          type: string
+          description: |
+            zie bestelling
+          enum:
+            - B2
+            - C1
+        Specialisme/vaardigheid (Bestelling):
+          type: string
+          description: |
+            zie bestelling
+        Naam aanvrager (Bestelling):
+          type: string
+          description: |
+            zie bestelling
+        Naam gespreksvoerder (Bestelling):
+          type: string
+          description: zie bestelling
+        Screeningsniveau (Bestelling):
+          type: string
+          description: zie bestelling
+        Referentie opdrachtgever (Bestelling):
+          type: string
+          description: zie bestelling
+        Datum/tijd bestelling (Bestelling):
+          type: string
+          description: zie bestelling
+        Datum/tijd gepland begin (Bestelling):
+          type: string
+          description: zie bestelling
+        Datum/tijd gepland eind (Bestelling):
+          type: string
+          description: zie bestelling
+        Geslacht (voorkeur) (Bestelling):
+          type: string
+          description: zie bestelling
+        Gesprekslocatie (Bestelling):
+          type: string
+          description: zie bestelling
       required:
         - Referentie intermediair
         - Naam tolk/vertaler
         - Rbtv nr.tolk/vertaler
-    Leveren-Akkoord:
-      title: Leveren-Akkoord
+        - Taal (Bestelling)
+        - Taalniveau (Bestelling)
+    Levering-Akkordering:
+      title: Levering-Akkordering
       type: object
       description: 'De daadwerkelijke leveringsgegevens van de tolk-/vertaaldienst èn vervolgens de akkordering van de bestelorganisatie. [Hoe 2 velden van Matching mee te geven?]'
       properties:
@@ -365,6 +410,12 @@ components:
             Verplicht voor vertolken.
             Door fiatteerder in te vullen.
             Mag een elektronische handtekening zijn maar ook handmatig.
+    Facturering:
+      title: Facturering
+      type: object
+      properties:
+        id:
+          type: string
   securitySchemes:
     API Key - 1:
       name: API Key
