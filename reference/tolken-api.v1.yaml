@@ -45,12 +45,26 @@ paths:
         - schema:
             type: string
           in: query
-      description: ''
+      description: 'Plaats een bestelling voor een tolk of vertaler '
       requestBody:
         content:
           application/json:
             schema:
+              $ref: '#/components/schemas/Bestelling'
+          application/xml:
+            schema:
               type: object
+              properties: {}
+          text/html:
+            schema:
+              $ref: '#/components/schemas/Bestelling'
+        description: Plaats een bestelling
+  /matches:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+      operationId: get-matches
 components:
   schemas:
     Bestelling:
@@ -203,6 +217,49 @@ components:
             Extra informatie die voor de tolk/vertaler van belang is. Door besteller in te vullen
 
 
+    Matching:
+      title: Matching
+      type: object
+      properties:
+        Inbelnummer:
+          type: string
+          description: |+
+            Telefoonnummer waarop gespreksvoerder dient in te bellen om tolksessie te starten. Uit systeem intermediair
+
+
+        Referentie intermediair:
+          type: string
+          description: |+
+            Unieke identificatie van de bestelling/opdracht (=opdrachtnummer). "Door intermediair toegekende identificatie van
+            opdracht. Automatisch bepaald."
+
+
+        Inloggegevens (video):
+          type: string
+          description: |+
+            In geval van video-tolken. Wordt door intermediair verstrekt. Uit systeem intermediair
+
+
+        'Afwijkende levering ':
+          type: string
+          description: |+
+            "De (afwijkend) te leveren dienst: taalniveau, specialisatie, geslachtsvoorkeur (m/v)
+            Op het momentdat het voorkomt is het verplicht".  Door intermediar in te vullen
+
+
+        Naam tolk/vertaler:
+          type: string
+          description: |+
+            Naam van de tolk (of rbtv nr), zodat opdrachtgever weet met wie hij/zij te maken heeft. Uit systeem intermediair (bron RBTV)
+
+
+        Rbtv nr.tolk/vertaler:
+          type: string
+          description: |+
+            Het Rbtv nummer van de tolk of vertaler. Uit systeem Rbtv of geen invoer
+
+
+      description: Matchingsvelden bij het matchen tussen geplaatste bestelling en wat voorradig is
   securitySchemes:
     API Key - 1:
       name: API Key
