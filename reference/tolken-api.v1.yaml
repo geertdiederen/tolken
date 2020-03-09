@@ -59,11 +59,6 @@ paths:
               properties: {}
         description: Plaats een bestelling
   /matches:
-    get:
-      summary: Your GET endpoint
-      tags: []
-      responses: {}
-      operationId: get-matches
     post:
       summary: ''
       operationId: post-matches
@@ -376,12 +371,12 @@ components:
     Levering-Akkordering:
       title: Levering-Akkordering
       type: object
-      description: 'De daadwerkelijke leveringsgegevens van de tolk-/vertaaldienst èn vervolgens de akkordering van de bestelorganisatie. [Hoe 2 velden van Matching mee te geven?]'
+      description: "De daadwerkelijke leveringsgegevens van de tolk-/vertaaldienst aan de bestelorganisatie èn hetzelfde wordt vervolgens gebruikt voor de akkordering door de bestelorganisatie. N.B.: De velden die '(Matching)' achter zich hebben staan duiden op eerder (mogelijk) aan besteller doorgegeven velden na Matching. idem maar dan met betrekking op de bestelling bij '(Bestelling)'"
       properties:
         Vertaaltariefeenheid:
           type: string
           description: |
-            verplicht voor vertalen. De aanbesteding afgesproken vertaal tariefeenheid
+            alleen voor vertalen. De aanbesteding afgesproken vertaal tariefeenheid
         Vertaalaantal:
           type: string
           description: |
@@ -410,6 +405,20 @@ components:
             Verplicht voor vertolken.
             Door fiatteerder in te vullen.
             Mag een elektronische handtekening zijn maar ook handmatig.
+        Naam tolk/vertaler (Matching):
+          type: string
+          description: zie Matching
+        Rbtv nr.tolk/vertaler (Matching):
+          type: string
+          description: zie Matching
+        Referentie intermediair (Matching):
+          type: string
+          description: zie Matching
+        Referentie opdrachtgever (Bestelling):
+          type: string
+      required:
+        - Referentie intermediair (Matching)
+        - Referentie opdrachtgever (Bestelling)
     Facturering:
       title: Facturering
       type: object
