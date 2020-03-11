@@ -467,6 +467,12 @@ components:
           type: string
         Bedrag:
           type: string
+    Overig:
+      title: Overig
+      type: object
+      properties:
+        Km:
+          type: string
   securitySchemes:
     API Key - 1:
       name: API Key
