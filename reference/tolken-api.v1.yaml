@@ -8,10 +8,10 @@ info:
 servers:
   - url: 'http://localhost:3000'
 paths:
-  /bestellingen/:
+  /bestellingen:
     parameters: []
     post:
-      summary: ''
+      summary: plaats bestelling bij intermediair
       operationId: post-bestellingen
       responses:
         '201':
@@ -60,11 +60,9 @@ paths:
         description: Plaats een bestelling
   /matches:
     post:
-      summary: ''
+      summary: Geef matchingsinfo door aan besteller
       operationId: post-matches
       responses:
-        '200':
-          description: Successfully read the data you requested
         '201':
           description: Successfully wrote the data you sent
         '401':
@@ -73,9 +71,11 @@ paths:
           description: 'Authentication succeeded, but the user does not have access to the resource'
         '404':
           description: 'The resource cannot be found, client-side error'
+        '406':
+          description: Not Acceptable
         '500':
           description: There was an error on the server-side
-      description: 'Geef matchingsinfo door aan Besteller  [? hoe Referentie opdrachtgever en nog 15 andere velden vanuit Bestelling Model op te nemen?]'
+      description: Geef matchingsinfo door aan Besteller
       requestBody:
         content:
           application/json:
@@ -94,9 +94,39 @@ paths:
             type: string
           in: header
     parameters: []
-  '':
+  akkorderingen:
     parameters:
       - required: true
+    post:
+      summary: ''
+      operationId: postakkorderingen
+      responses:
+        '200':
+          description: OK
+  /leveringen:
+    post:
+      summary: Geef dienstleveringsinfo door aan besteller
+      operationId: post-leveringen
+      responses:
+        '201':
+          description: Successfully wrote the data you sent
+        '401':
+          description: Authentication is missing or incorrect
+        '403':
+          description: 'Authentication succeeded, but the user does not have access to the resource'
+        '404':
+          description: 'The resource cannot be found, client-side error'
+        '406':
+          description: Not Acceptable
+        '500':
+          description: There was an error on the server-side
+      description: Geleverde dienstinformatie voor bestelorganisatie (Rijksonderdeel)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Levering-Akkordering'
+        description: Doorgeven van dienstlevering tolk/vertaler
 components:
   schemas:
     Bestelling:
@@ -416,6 +446,7 @@ components:
           description: zie Matching
         Referentie opdrachtgever (Bestelling):
           type: string
+          description: zie Bestelling
       required:
         - Referentie intermediair (Matching)
         - Referentie opdrachtgever (Bestelling)
