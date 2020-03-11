@@ -423,7 +423,49 @@ components:
       title: Facturering
       type: object
       properties:
-        id:
+        Electronisch adres opdrachtgever:
+          type: string
+        Adres opdrachtgever:
+          type: string
+        Plaatsnaam opdrachtgever:
+          type: string
+        Postcode opdrachtgever:
+          type: string
+        Naam intermediair:
+          type: string
+        Adres intermediair:
+          type: string
+        Plaatsnaam intermediair:
+          type: string
+        Postcode intermediair:
+          type: string
+        KvK intermediair:
+          type: string
+        BTW nummer intermediair:
+          type: string
+        Rekeningnummer intermediar:
+          type: string
+        Tijdsduur tolken:
+          type: string
+        Contractnummer van de opdrachtgever:
+          type: string
+        Factuurmaand:
+          type: string
+        Factuurdatum:
+          type: string
+        Code betaalwijze:
+          type: string
+        'Factuurtotaal ':
+          type: string
+        Factuurtotaal excl. BTW:
+          type: string
+        BTW totaal:
+          type: string
+        'BTW sub-totaal per %':
+          type: string
+        'BTW %':
+          type: string
+        Bedrag:
           type: string
   securitySchemes:
     API Key - 1:
