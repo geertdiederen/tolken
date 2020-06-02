@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   title: tolken api
   version: '1.0'
-  description: API voor gegevensuitwisseling tussen rijksonderdelen en tolken intermediairs
+  description: API voor gegevensuitwisseling tussen rijksonderdelen en tolken intermediairs (versie 3.1 Gegevensset)
   contact:
     name: Geert Diederen
 servers:
@@ -155,9 +155,6 @@ components:
           description: |
             "Organisatienaam benodigd voor autorisatie van de bestelling (""NP"", ""IND"", ""COA"", ""OM"", ""RvR"", ""DT&V"", etc).
             Eenmalig in te voeren bij installatie APP." Moet gestandaardiseerd worden tbv management info
-        Regio:
-          type: string
-          description: "\"De regio waaronder de gespreksvoerder/zaak valt\n\" \"Liefst éénmaal invoeren bij configuratie voorziening\nAls basisigegeven beschikbaar stellen bij bestelling. \nEventueel overschrijven per bestelling\"\n\n"
         Soort tolk (tolken/vertalen):
           type: string
           description: |+
@@ -304,6 +301,8 @@ components:
             Extra informatie die voor de tolk/vertaler van belang is. Door besteller in te vullen
 
 
+        '':
+          type: string
       required:
         - Organisatie opdrachtgever
         - Soort tolk (tolken/vertalen)
@@ -470,6 +469,106 @@ components:
       properties:
         Km:
           type: string
+    Algemeen:
+      title: Algemeen
+      type: object
+      description: Algemene velden
+      properties:
+        Contractnummer:
+          type: string
+          description: |+
+            ID vh contract waaronder de tolkdienst besteld / uitgevoerd is. Uit systeem intermediair. Verplicht in te vullen bij matchen geplande bestelling.
+
+
+        Naam Intermediair:
+          type: string
+          description: "Handelsnaam van de Opdrachtnemer\tUit systeem intermediair\n"
+        Departemenet:
+          type: string
+          description: "Departement waaronder de bestellende organisatie resorteert\tDe exacte notatie van dit veld wordt afgestemd in de implementatiefase\n"
+        Organisatie:
+          type: string
+          description: "\"Organisatienaam benodigd voor autorisatie van de bestelling (\"\"NP\"\", \"\"IND\"\", \"\"COA\"\", \"\"OM\"\", \"\"RvR\"\", \"\"DT&V\"\", etc)\nEenmalig in te voeren bij installatie APP\"\t\"Liefst éénmaal invoeren bij configuratie voorziening\nAls basisigegeven beschikbaar stellen bij bestelling. \nEventueel overschrijven per bestelling\nMoet gestandaardiseerd worden tbv management info; de exacte notatie van dit veld wordt afgestemd in de implementatiefase\"\n"
+        Subonderdeel:
+          type: string
+          description: "Verbijzondering van de de gegevens bij Organisatie opdrachtgever, bijvoorbeeld een organisatie(onderdeel) of een afdeling \t\"Liefst éénmaal invoeren bij configuratie voorziening\nAls basisigegeven beschikbaar stellen bij bestelling. \nEventueel overschrijven per bestelling\nMoet gestandaardiseerd worden tbv management info; de exacte notatie van dit veld wordt afgestemd in de implementatiefase\"\n"
+        Factuurmaand:
+          type: string
+          description: "Maand waarover gefactureerd wordt\tUit systeem intermediair, in het formaat jjjj-mm\n"
+    Bestellen:
+      title: Bestellen
+      type: object
+      description: 'Bestellingsvelden Gegevensset Tolk- en Vertaaldiensten. Elke tolk-/vertaaldienst begint met het bestellen van een tolkdienst. In deze stap levert de besteller alle noodzakelijke gegevens voor het leveren van een tolkdienst. Onder deze stap wordt ook het wijzigen (Datum/tijd wijziging gevuld) en annuleren (Datum/tijd annulering gevuld) van een bestelling verstaan vanuit de besteller; N.B.: een wijziging of annulering(niet-levering) vanuit de Intermediair richting besteller wordt als afwijkende levering c.q. niet-levering gemeld (via matching module).'
+      properties:
+        Inkoopordernummer:
+          type: string
+          description: "Het inkoopordernummer van de opdracht\tLiefst selecteren uit te configureren selectielijst, door gebruiker te overschrijven\n"
+        Leveringswijze:
+          type: string
+          description: "Tolkdienst op afstand of tolkdienst op locatie\t\"Afhankelijk van kavelverdeling organisatie en autorisatie\n1 kavel: vastleggen\nMeerdere kavels: Opgeven bij bestelling\"\n"
+        Categorie gesprek:
+          type: string
+          description: "\"In overeenstemming met de vastgestelde lijst in de PDC:\nCongres\nDelegaties\nGehoor\nGesprek\nGroepen/Bijeenkomsten\nInterceptie\nMedisch/Zorg\nAlgemeen\nRechtshulp\nSchrijftolk\nVerhoor\nVertalen\nZitting/Rechtszaak\nGebaren-/Lipleestolk\"\t\"In overeenstemming met de vastgestelde lijst in de PDC. Afhankelijk van kavelverdeling organisatie en autorisatie\n1 kavel: vastleggen\nMeerdere kavels: Opgeven bij bestelling\"\n"
+        Rbtv-taal:
+          type: string
+          description: "\"De te tolken taal conform Rbtv. Altijd van/naar Nederlands\nIndien niet-Nederlands, bv turks <-> engels dan handmatig afhandelen\"\tDoor besteller in te vullen, te kiezen uit lijst Rbtv, handmatig te overschrijven\n"
+        Taalniveau gevraagd:
+          type: string
+          description: "Het benodigde taalniveau voor de opdracht\tDoor besteller in te vullen/te selecteren\n"
+        Specifieke vaardigheden:
+          type: string
+          description: "\"Relevante kavelcriteria: Medisch advies (IND); AG, GGD, Zorg (COA)\nMogelijk andere: Keuze uit gerechtstolk (OM) , gezondheidstolk (DJI), RvdK-tolk (RvdK), andere? Dit door intermediair te administreren want staat niet in RBTV! \nNB nu alleen specialisme voor gerechtstolk in RBTV! \"\tUit lijst of vrij tekstveld\n"
+        Screeningsniveau:
+          type: string
+          description: "\"Geen of wel screening benodigd\nStandaard: \"\"VOG80\"\", \nAdditioneel: IND verklaring\nAdditioneel: \"\"VGB\"\"; = Verklaring Geen Bezwaar (screening door NP)\"\tDoor besteller in te vullen\n"
+        Geslacht:
+          type: string
+          description: "\"Optioneel kan een voorkeur worden opgegeven: \"\"m\"\" of \"\"v\"\"\nOverige voorkeuren, bijvoorbeeld cultureel worden als vrije tekst of mondeling doorgegeven\"\tDoor besteller in te vullen\n"
+        Aanvullende wensen:
+          type: string
+          description: "\"Vrij teksveld waarin aanvullende wensen/voorkeuren opgegeven kunnen worden, bijvoorbeeld: \n- voorkeurstolk\n- vooraf overleg gewenst\n- nationaliteit e.d.\"\tDoor besteller in te vullen\n"
+        Referentie opdrachtgever:
+          type: string
+          description: "Identificatie van de opdracht, in de meeste gevallen het zaak-/dossiernummer \tDoor besteller in te vullen\n"
+        Identificatie besteller:
+          type: string
+          description: "Unieke identificatie van de besteller\t\"Af te stemmen tijdens de implementatie\n\"\n"
+        Naam besteller:
+          type: string
+          description: "\"Voor- + achternaam v.d. besteller (bij gepland bestellen)\nKan ook alias zijn\"\t\"Uit SAML bericht/bekend bij intermediair/in te voeren door besteller (liefst éénmaal bij configuratie)\n\"\n"
+        Telefoonnummer aanvrager:
+          type: string
+          description: "\"Telefoonnummer van de besteller (bij gepland bestellen)\nKan ook algemeen nummer zijn\"\tUit SAML bericht/bekend bij intermediair/in te voeren door besteller (liefst éénmaal bij configuratie)\n"
+        Email aanvrager:
+          type: string
+          description: "\"email van de besteller (bij gepland bestellen)\nKan ook alias of algemeen e-mail nummer zijn\"\tUit SAML bericht/bekend bij intermediair/in te voeren door besteller (liefst éénmaal bij configuratie)\n"
+        Datum/tijd gepland begin:
+          type: string
+          description: "De datum/tijd van het geplande begin van de tolkdienst\tDoor besteller in te vullen\n"
+        Datum/tijd gepland eind:
+          type: string
+          description: "De datum/tijd van het geplande einde van de tolkdienst\tDoor besteller in te vullen\n"
+        Voorbereidingstijd:
+          type: string
+          description: "De duur van de voorbereidingstijd in minuten\tDoor besteller in te vullen\n"
+        Gesprekslocatie:
+          type: string
+          description: "In geval van tolken op locatie de locatie- & contactgegevens voor het te tolken gesprek\tDoor besteller in te vullen\n"
+        Naam gespreksvoerder:
+          type: string
+          description: "\"Voor- + achternaam v.d. gespreksvoerder\nKan ook alias zijn\"\t\"Is de 'naam besteller' als gespreksvoerder de aanvraag doet\nKan ook alias zijn\"\n"
+        Info ten behoeve van tolk:
+          type: string
+          description: "Extra informatie die voor de tolk van belang is\tDoor besteller in te vullen\n"
+        Datum/tijd bestelling:
+          type: string
+          description: "De datum/tijd waarop de aanvraag van de tolkdienst bij de opdrachtnemer is binnengekomen\tVastleggen\n"
+        Datum/tijd wijziging:
+          type: string
+          description: "\"De datum/tijd waarop de wijziging van de aanvraag bij de opdrachtnemer is binnengekomen\nAlleen invullen als er ook een wijziging is, dan verplicht\n\"\tVastleggen\n"
+        Datum/tijd annulering:
+          type: string
+          description: "\"De datum/tijd waarop de annnulering van de aanvraag de aanvraag bij de opdrachtnemer is binnengekomen\nAlleen invullen als er ook een annulering is, dan verplicht\"\tVastleggen\n"
   securitySchemes:
     API Key - 1:
       name: API Key
