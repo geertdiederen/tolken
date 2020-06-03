@@ -601,15 +601,20 @@ components:
         Datum/tijd bevestiging:
           type: string
           description: "De datum/tijd waarop de tolkdienst bevestigd is\tUit systeem intermediair\n"
-        '':
-          type: string
     Leveren-en-accorderen-prestatie:
       title: Leveren-en-accorderen-prestatie
       type: object
-      properties:
-        id:
-          type: string
       description: "De daadwerkelijke leveringsgegevens van de tolk-/vertaaldienst aan de bestelorganisatie èn hetzelfde wordt vervolgens gebruikt voor de accordering door de bestelorganisatie. N.B.: De velden die '(Matching)' achter zich hebben staan duiden op eerder (mogelijk) aan besteller doorgegeven velden na Matching. idem maar dan met betrekking op de bestelling bij '(Bestelling)'"
+      properties:
+        'Datum/tijd begin ':
+          type: string
+          description: "De datum/tijd dat de tolkdienst daadwerkelijk is gestart\t\"Uit systeem service provider/intermediair (op afstand)\nDoor tolk in te vullen (op locatie)\"\n"
+        Datum/tijd eind:
+          type: string
+          description: "De datum/tijd dat de tolkdienst daadwerkelijk is geeindigd\t\"Uit systeem service provider/intermediair (op afstand)\nDoor tolk in te vullen (op locatie)\"\n"
+        Prestatie akkoord verklaarder:
+          type: string
+          description: "Unieke identificatie van degene die het prestatie akkoord geeft vanuit de bestelorganisatie\t\"Af te stemmen tijdens de implementatie\n\"\n"
   securitySchemes:
     API Key - 1:
       name: API Key
