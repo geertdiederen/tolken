@@ -45,7 +45,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Bestelling'
+              $ref: '#/components/schemas/Bestellen'
+            examples:
+              example-1: {}
           application/xml:
             schema:
               type: object
@@ -80,7 +82,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Matching'
+              $ref: '#/components/schemas/Matchen'
           application/xml:
             schema:
               type: object
@@ -116,7 +118,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Levering-Akkordering'
+              $ref: '#/components/schemas/Accorderen-prestatie'
   /leveringen:
     post:
       summary: Geef dienstleveringsinfo door aan besteller
@@ -139,7 +141,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Levering-Akkordering'
+              $ref: '#/components/schemas/Leveren-prestatie'
         description: Doorgeven van dienstlevering tolk/vertaler
 components:
   schemas:
