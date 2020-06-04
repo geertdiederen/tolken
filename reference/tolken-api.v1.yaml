@@ -143,332 +143,6 @@ paths:
         description: Doorgeven van dienstlevering tolk/vertaler
 components:
   schemas:
-    Bestelling:
-      title: 'Bestelling (kan weg, vervangen door nieuwe module Bestellen)'
-      x-examples:
-        example-1: {}
-      description: 'Bestellingsvelden Gegevensset Tolk- en Vertaaldiensten. Elke tolk-/vertaaldienst begint met het bestellen van een tolkdienst. In deze stap levert de besteller alle noodzakelijke gegevens voor het leveren van een tolkdienst. Onder deze stap wordt ook het wijzigen (Datum/tijd wijziging gevuld) en annuleren (Datum/tijd annulering gevuld) van een bestelling verstaan vanuit de besteller; N.B.: een wijziging of annulering(niet-levering) vanuit de Intermediair richting besteller wordt als afwijkende levering c.q. niet-levering gemeld (via matching module).'
-      type: object
-      properties:
-        Organisatie opdrachtgever:
-          type: string
-          description: |
-            "Organisatienaam benodigd voor autorisatie van de bestelling (""NP"", ""IND"", ""COA"", ""OM"", ""RvR"", ""DT&V"", etc).
-            Eenmalig in te voeren bij installatie APP." Moet gestandaardiseerd worden tbv management info
-        Soort tolk (tolken/vertalen):
-          type: string
-          description: |+
-            Keuze tussen tolken of vertalen "Afhankelijk van kavelverdeling organisatie en autorisatie
-            1 kavel: vastleggen
-            Meerdere kavels: Opgeven bij bestelling"
-
-
-        Soort tolkdienst:
-          type: string
-          description: |+
-            (alleen bij Tolken verplicht)
-            "Mogelijkheden nu: ""telefonisch ad hoc""; ""telefonisch gepland""; ""op locatie"".
-            Mogelijk latere opties: ""conference call""; ""video conference""" "Afhankelijk van kavelverdeling organisatie en autorisatie
-            1 kavel: vastleggen
-            Meerdere kavels: Opgeven bij bestelling"
-
-
-        Taal:
-          type: string
-          description: |+
-            "De te tolken taal conform Rbtv. Altijd van/naar Nederlands
-            Indien vertalers meegenomen worden is de richting ook van belang.
-            Indien niet-Nederlands, bv turks <-> engels dan handmatig afhandelen. " Door besteller in te vullen
-
-
-        Taalniveau:
-          type: string
-          description: |+
-            Het benodigde taalniveau voor de opdracht. Door besteller in te vullen
-
-
-          enum:
-            - B2
-            - C1
-        Specialisme/vaardigheid:
-          type: string
-          description: "\"Relevante kavelcriteria: Medisch advies (IND); AG, GGD, Zorg (COA)\nMogelijk andere: Keuze uit gerechtstolk (OM) , gezondheidstolk (DJI), RvdK-tolk (RvdK), andere? Dit door intermediair te administreren want staat niet in RBTV! \nNB nu alleen specialisme voor gerechtstolk in RBTV! \"\n\nUit lijst of vrij tekstveld?\n\n"
-        Organisatie-eenheid opdrachtgever:
-          type: string
-          description: |+
-            Naam van de organisatie-eenheid die budgethouder is voor de dienst (budgetverantwoordelijke). Uit SAML bericht/bekend bij intermediair/in te voeren door besteller (liefst éénmaal bij configuratie)
-
-
-        Registratienummer opdrachtgever:
-          type: string
-          description: |+
-            Voor Nederlandse overheidsorganisaties het OIN. Uit SAML bericht/bekend bij intermediair/in te voeren door besteller (liefst éénmaal bij configuratie)
-
-
-        Naam aanvrager:
-          type: string
-          description: "\"Voor- + achternaam v.d. aanvrager (bij gepland bestellen). Kan ook alias zijn\". \"Uit SAML bericht/bekend bij intermediair/in te voeren door besteller (liefst éénmaal bij configuratie)\n\"\n \n"
-        Telefoonnummer aanvrager:
-          type: string
-          description: |
-            Telefoonnummer van de aanvrager (bij gepland bestellen).Kan ook algemeen nummer zijn. Uit SAML bericht/bekend bij intermediair/in te voeren door besteller (liefst éénmaal bij configuratie)
-        Email aanvrager:
-          type: string
-          description: |+
-            "email van de aanvrager (bij gepland bestellen).
-            Kan ook alias of algemeen e-mail nummer zijn". Uit SAML bericht/bekend bij intermediair/in te voeren door besteller (liefst éénmaal bij configuratie)
-
-
-        Naam gespreksvoerder:
-          type: string
-          description: |+
-            (alleen bij reguliere tolk bestelling verplicht, niet voor ad-hoc aanvraag)
-            "Voor- + achternaam v.d. gespreksvoerder
-            Kan ook alias zijn". "Is de 'naam aanvrager' als gespreksvoerder de aanvraag doet. Kan ook alias zijn"
-
-
-        Screeningsniveau:
-          type: string
-          description: "\"Geen of wel screening benodigd\nStandaard: \"\"VOG80\"\", \nAdditioneel: IND verklaring\nAdditioneel: \"\"VGB\"\"; = Verklaring Geen Bezwaar (screening door NP)\".  Door aanvrager in te vullen\n\n"
-        Referentie opdrachtgever:
-          type: string
-          description: |+
-            Identificatie van de opdracht, in de meeste gevallen het zaak-/dossiernummer.   Door aanvrager in te vullen
-
-
-        Datum/tijd bestelling:
-          type: string
-          description: |+
-            De datum/tijd waarop de tolkdienst is aangevraagd. Vastleggen
-
-
-        Datum/tijd wijziging:
-          type: string
-          description: |+
-            "De datum/tijd waarop de aanvraag gewijzigd is.
-            Alleen invullen al er ook een wijziging is, dan verplicht". Vastleggen
-
-
-        Datum/tijd annulering:
-          type: string
-          description: |+
-            "De datum/tijd waarop de aanvraag door de besteller is geannuleerd (overal in de gegevensset aanvrager door besteller vervangen)
-            Alleen invullen al er ook een annulering is, dan verplicht". Vastleggen
-
-
-        Datum/tijd gepland begin:
-          type: string
-          description: |+
-            (alleen bij reguliere tolk-aanvraag verplicht, niet bij vertalen, of ad-hoc tolk-aanvraag)
-            De datum/tijd van het geplande begin van de tolkdienst. Door besteller in te vullen
-
-
-        Datum/tijd gepland eind:
-          type: string
-          description: |+
-            (alleen bij reguliere tolk-aanvraag verplicht, niet bij vertalen, of ad-hoc tolk-aanvraag)
-            De datum/tijd van het geplande einde van de tolkdienst. Door besteller in te vullen
-
-
-        Spoedaanvraag:
-          type: string
-          description: |
-            "De bestelling kan worden voorzien van de opmerking dat de dienst met spoed dient te worden geleverd."
-            Door besteller in te vullen
-          enum:
-            - Nee
-            - Ja
-        Geslacht (voorkeur):
-          type: string
-          description: |+
-            "Optioneel kan een voorkeur worden opgegeven: ""m"" of ""v""
-            Overige voorkeuren, bijvoorbeeld cultureel worden als vrije tekst of mondeling doorgegeven." Door besteller in te vullen
-
-
-        Aanvullende wensen:
-          type: string
-          description: "\"Vrij teksveld waarin aanvullende wensen/voorkeuren opgegeven kunnen worden, bijvoorbeeld: \n- voorkeurstolk\n- vooraf overleg gewenst\n- nationaliteit e.d.\"\nDoor besteller in te vullen\n"
-        Gesprekslocatie:
-          type: string
-          description: |+
-            (alleen bij tolken verplicht, niet bij vertalen)
-            In geval van tolken op locatie de locatie- & contactgegevens voor het te tolken gesprek. Door besteller in te vullen
-
-
-        Info ten behoeve van tolk:
-          type: string
-          description: |+
-            Extra informatie die voor de tolk/vertaler van belang is. Door besteller in te vullen
-
-
-        '':
-          type: string
-      required:
-        - Organisatie opdrachtgever
-        - Soort tolk (tolken/vertalen)
-        - Taal
-        - Taalniveau
-        - Organisatie-eenheid opdrachtgever
-        - Registratienummer opdrachtgever
-        - Naam aanvrager
-        - Telefoonnummer aanvrager
-        - Email aanvrager
-        - Referentie opdrachtgever
-        - Datum/tijd bestelling
-    Matching:
-      title: 'Matching (kan weg, vervangen door nieuwe module Matchen)'
-      type: object
-      description: "Matchingsvelden die doorgegeven worden aan besteller na het matchen tussen geplaatste bestellingsverzoek en wat beschikbaar is bij Intermediair. N.B.: De velden die '(Bestelling)' achter zich hebben staan duiden op eerder (mogelijk) opgegeven velden bij het plaatsen van de bestelling en die bij aanwezigheid meegegeven worden richting besteller."
-      properties:
-        Inbelnummer:
-          type: string
-          description: |+
-            Telefoonnummer waarop gespreksvoerder dient in te bellen om tolksessie te starten. Uit systeem intermediair
-
-
-        Referentie intermediair:
-          type: string
-          description: |+
-            Unieke identificatie van de bestelling/opdracht (=opdrachtnummer). "Door intermediair toegekende identificatie van
-            opdracht. Automatisch bepaald."
-
-
-        Inloggegevens (video):
-          type: string
-          description: |+
-            In geval van video-tolken. Wordt door intermediair verstrekt. Uit systeem intermediair
-
-
-        'Afwijkende levering ':
-          type: string
-          description: |+
-            "De (afwijkend) te leveren dienst: taalniveau, specialisatie, geslachtsvoorkeur (m/v)
-            Op het momentdat het voorkomt is het verplicht".  Door intermediar in te vullen. Eveneens een niet levering wordt hier gemeld.
-
-
-        Naam tolk/vertaler:
-          type: string
-          description: |+
-            Naam van de tolk (of rbtv nr), zodat opdrachtgever weet met wie hij/zij te maken heeft. Uit systeem intermediair (bron RBTV)
-
-
-        Rbtv nr.tolk/vertaler:
-          type: string
-          description: |+
-            Het Rbtv nummer van de tolk of vertaler. Uit systeem Rbtv of geen invoer
-
-
-        Soort tolkdienst (Bestelling):
-          type: string
-          description: |
-            zie bestelling
-        Taal (Bestelling):
-          type: string
-          description: |
-            zie bestelling
-        Taalniveau (Bestelling):
-          type: string
-          description: |
-            zie bestelling
-          enum:
-            - B2
-            - C1
-        Specialisme/vaardigheid (Bestelling):
-          type: string
-          description: |
-            zie bestelling
-        Naam aanvrager (Bestelling):
-          type: string
-          description: |
-            zie bestelling
-        Naam gespreksvoerder (Bestelling):
-          type: string
-          description: zie bestelling
-        Screeningsniveau (Bestelling):
-          type: string
-          description: zie bestelling
-        Referentie opdrachtgever (Bestelling):
-          type: string
-          description: zie bestelling
-        Datum/tijd bestelling (Bestelling):
-          type: string
-          description: zie bestelling
-        Datum/tijd gepland begin (Bestelling):
-          type: string
-          description: zie bestelling
-        Datum/tijd gepland eind (Bestelling):
-          type: string
-          description: zie bestelling
-        Geslacht (voorkeur) (Bestelling):
-          type: string
-          description: zie bestelling
-        Gesprekslocatie (Bestelling):
-          type: string
-          description: zie bestelling
-      required:
-        - Referentie intermediair
-        - Naam tolk/vertaler
-        - Rbtv nr.tolk/vertaler
-        - Taal (Bestelling)
-        - Taalniveau (Bestelling)
-    Levering-Akkordering:
-      title: Levering-Akkordering
-      type: object
-      description: "De daadwerkelijke leveringsgegevens van de tolk-/vertaaldienst aan de bestelorganisatie èn hetzelfde wordt vervolgens gebruikt voor de akkordering door de bestelorganisatie. N.B.: De velden die '(Matching)' achter zich hebben staan duiden op eerder (mogelijk) aan besteller doorgegeven velden na Matching. idem maar dan met betrekking op de bestelling bij '(Bestelling)'"
-      properties:
-        Vertaaltariefeenheid:
-          type: string
-          description: |
-            alleen voor vertalen. De aanbesteding afgesproken vertaal tariefeenheid
-        Vertaalaantal:
-          type: string
-          description: |
-            Alleen bij vertalen van belang: het vertaalde volume
-        Datum/tijd begin:
-          type: string
-          description: |
-            verplicht voor vertolken.
-            De datum/tijd dat de tolkdienst daadwerkelijk is gestart.
-             "Uit systeem service provider/intermediair (op afstand)
-            Door tolk in te vullen (op locatie)"
-        Datum/tijd eind:
-          type: string
-          description: "verplicht voor vertolken. \nDe datum/tijd dat de tolkdienst daadwerkelijk is geeindigd.\n\"Uit systeem service provider/intermediair (op afstand)\nDoor tolk in te vullen (op locatie)\"\n "
-        Functie fiatteerder:
-          type: string
-          description: "verplicht voor vertolken. De functie van de fiatteerder van de bestelorganisatie. \nDoor fiatteerder in te vullen "
-        Naam fiatteerder:
-          type: string
-          description: |
-            verplicht voor vertolken. De naam van de fiatteerder van de bestelorganisatie.
-            Door fiatteerder in te vullen
-        'Handtekening ':
-          type: string
-          description: |-
-            Verplicht voor vertolken.
-            Door fiatteerder in te vullen.
-            Mag een elektronische handtekening zijn maar ook handmatig.
-        Naam tolk/vertaler (Matching):
-          type: string
-          description: zie Matching
-        Rbtv nr.tolk/vertaler (Matching):
-          type: string
-          description: zie Matching
-        Referentie intermediair (Matching):
-          type: string
-          description: zie Matching
-        Referentie opdrachtgever (Bestelling):
-          type: string
-          description: zie Bestelling
-      required:
-        - Referentie intermediair (Matching)
-        - Referentie opdrachtgever (Bestelling)
-    Overig:
-      title: Overig
-      type: object
-      properties:
-        Km:
-          type: string
     Algemeen:
       title: Algemeen
       type: object
@@ -495,7 +169,10 @@ components:
     Bestellen:
       title: Bestellen
       type: object
-      description: 'Bestellingsvelden Gegevensset Tolk- en Vertaaldiensten. Elke tolk-/vertaaldienst begint met het bestellen van een tolkdienst. In deze stap levert de besteller alle noodzakelijke gegevens voor het leveren van een tolkdienst. Onder deze stap wordt ook het wijzigen (Datum/tijd wijziging gevuld) en annuleren (Datum/tijd annulering gevuld) van een bestelling verstaan vanuit de besteller; N.B.: een wijziging of annulering(niet-levering) vanuit de Intermediair richting besteller wordt als afwijkende levering c.q. niet-levering gemeld (via matching module).'
+      description: |-
+        Bestellingsvelden Gegevensset Tolk- en Vertaaldiensten. Elke tolk-/vertaaldienst begint met het bestellen van een tolkdienst. In deze stap levert de besteller alle noodzakelijke gegevens voor het leveren van een tolkdienst. Onder deze stap wordt ook het wijzigen (Datum/tijd wijziging gevuld) en annuleren (Datum/tijd annulering gevuld) van een bestelling verstaan vanuit de besteller; N.B.: een wijziging of annulering(niet-levering) vanuit de Intermediair richting besteller wordt als afwijkende levering c.q. niet-levering gemeld (via matching module).
+
+        combisleutelvelden bij wijziging of annulering vanuit besteller naar Intermediair: Identificatie besteller en Datum/tijd bestelling
       properties:
         Inkoopordernummer:
           type: string
@@ -566,10 +243,24 @@ components:
         Datum/tijd annulering:
           type: string
           description: "\"De datum/tijd waarop de annnulering van de aanvraag de aanvraag bij de opdrachtnemer is binnengekomen\nAlleen invullen als er ook een annulering is, dan verplicht\"\tVastleggen\n"
+      required:
+        - Inkoopordernummer
+        - Leveringswijze gevraagd
+        - Categorie gesprek
+        - Rbtv-taal
+        - Identificatie besteller
+        - Naam besteller
+        - Telefoonnummer aanvrager
+        - Email aanvrager
+        - Datum/tijd gepland begin
+        - Datum/tijd gepland eind
+        - Gesprekslocatie
+        - Naam gespreksvoerder
+        - Datum/tijd bestelling
     Matchen:
       title: Matchen
       type: object
-      description: "Matchingsvelden die doorgegeven worden aan besteller na het matchen tussen geplaatste bestellingsverzoek en wat beschikbaar is bij Intermediair. N.B.: De velden die '(Bestelling)' achter zich hebben staan duiden op eerder (mogelijk) opgegeven velden bij het plaatsen van de bestelling en die bij aanwezigheid meegegeven worden richting besteller."
+      description: "Matchingsvelden die doorgegeven worden aan besteller na het matchen tussen geplaatste bestellingsverzoek en wat beschikbaar is bij Intermediair. \n\nSleutelveldencombi: Identificatie besteller (module Bestellen) en Datum/tijd bestelling (module Bestellen). "
       properties:
         Opdrachtnummer intermediair:
           type: string
@@ -601,10 +292,16 @@ components:
         Datum/tijd bevestiging:
           type: string
           description: "De datum/tijd waarop de tolkdienst bevestigd is\tUit systeem intermediair\n"
-    Leveren-en-accorderen-prestatie:
-      title: Leveren-en-accorderen-prestatie
+      required:
+        - Opdrachtnummer intermediair
+        - Naam tolk
+        - Rbtv-nummer
+        - Taalniveau geleverd
+        - Datum/tijd bevestiging
+    Leveren-prestatie:
+      title: Leveren prestatie
       type: object
-      description: "De daadwerkelijke leveringsgegevens van de tolk-/vertaaldienst aan de bestelorganisatie èn hetzelfde wordt vervolgens gebruikt voor de accordering door de bestelorganisatie. N.B.: De velden die '(Matching)' achter zich hebben staan duiden op eerder (mogelijk) aan besteller doorgegeven velden na Matching. idem maar dan met betrekking op de bestelling bij '(Bestelling)'"
+      description: "De daadwerkelijke leveringsgegevens van de tolk-/vertaaldienst aan de bestelorganisatie èn hetzelfde wordt vervolgens gebruikt voor de accordering door de bestelorganisatie. \n\nDe sleutels zijn Handelsnaam Intermediair (module Algemeen) en Opdrachtnummer intermediair (module Matchen)"
       properties:
         'Datum/tijd begin ':
           type: string
@@ -612,9 +309,18 @@ components:
         Datum/tijd eind:
           type: string
           description: "De datum/tijd dat de tolkdienst daadwerkelijk is geeindigd\t\"Uit systeem service provider/intermediair (op afstand)\nDoor tolk in te vullen (op locatie)\"\n"
+    Accorderen-prestatie:
+      title: Accorderen-prestatie
+      type: object
+      description: |-
+        Het accorderen van de geleverde prestatie vindt plaats door de bestelorganisatie (Rijksonderdeel).
+
+        De sleutels zijn Handelsnaam intermediair (module Algemeen) en Opdrachtnummer intermediair (module Matchen)
+      properties:
         Prestatie akkoord verklaarder:
           type: string
-          description: "Unieke identificatie van degene die het prestatie akkoord geeft vanuit de bestelorganisatie\t\"Af te stemmen tijdens de implementatie\n\"\n"
+      required:
+        - Prestatie akkoord verklaarder
   securitySchemes:
     API Key - 1:
       name: API Key
