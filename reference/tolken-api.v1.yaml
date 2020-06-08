@@ -171,10 +171,7 @@ components:
     Bestellen:
       title: Bestellen
       type: object
-      description: |-
-        Bestellingsvelden Gegevensset Tolk- en Vertaaldiensten. Elke tolk-/vertaaldienst begint met het bestellen van een tolkdienst. In deze stap levert de besteller alle noodzakelijke gegevens voor het leveren van een tolkdienst. Onder deze stap wordt ook het wijzigen (Datum/tijd wijziging gevuld) en annuleren (Datum/tijd annulering gevuld) van een bestelling verstaan vanuit de besteller; N.B.: een wijziging of annulering(niet-levering) vanuit de Intermediair richting besteller wordt als afwijkende levering c.q. niet-levering gemeld (via matching module).
-
-        combisleutelvelden bij wijziging of annulering vanuit besteller naar Intermediair: Identificatie besteller en Datum/tijd bestelling
+      description: "Bestellingsvelden Gegevensset Tolk- en Vertaaldiensten. Elke tolk-/vertaaldienst begint met het bestellen van een tolkdienst. In deze stap levert de besteller alle noodzakelijke gegevens voor het leveren van een tolkdienst. \n\nOnder deze stap wordt ook het wijzigen (Datum/tijd wijziging gevuld) en annuleren (Datum/tijd annulering gevuld) van een bestelling verstaan vanuit de besteller; N.B.: een wijziging of annulering(niet-levering) vanuit de Intermediair richting besteller wordt als afwijkende levering c.q. niet-levering gemeld (via matching module).\n\ncombisleutelvelden bij wijziging of annulering vanuit besteller naar Intermediair: Identificatie besteller en Datum/tijd bestelling, maar om API zo beknopt mogelijk en voor algemeen gebruik te houden moeten alle verplicht in te vullen velden worden meegegeven richting intermediair. "
       properties:
         Inkoopordernummer:
           type: string
@@ -264,6 +261,10 @@ components:
       type: object
       description: "Matchingsvelden die doorgegeven worden aan besteller na het matchen tussen geplaatste bestellingsverzoek en wat beschikbaar is bij Intermediair. \n\nSleutelveldencombi: Identificatie besteller (module Bestellen) en Datum/tijd bestelling (module Bestellen). "
       properties:
+        Identificatie besteller (sleutel):
+          type: string
+        Datum/tijd bestelling (sleutel):
+          type: string
         Opdrachtnummer intermediair:
           type: string
           description: "Unieke identificatie van de bestelling/opdracht (=opdrachtnummer)\t\"Door intermediair toegekende identificatie van\nopdracht. Automatisch bepaald.\"\n"
@@ -295,6 +296,8 @@ components:
           type: string
           description: "De datum/tijd waarop de tolkdienst bevestigd is\tUit systeem intermediair\n"
       required:
+        - Identificatie besteller (sleutel)
+        - Datum/tijd bestelling (sleutel)
         - Opdrachtnummer intermediair
         - Naam tolk
         - Rbtv-nummer
@@ -305,12 +308,21 @@ components:
       type: object
       description: "De daadwerkelijke leveringsgegevens van de tolk-/vertaaldienst aan de bestelorganisatie èn hetzelfde wordt vervolgens gebruikt voor de accordering door de bestelorganisatie. \n\nDe sleutels zijn Handelsnaam Intermediair (module Algemeen) en Opdrachtnummer intermediair (module Matchen)"
       properties:
-        'Datum/tijd begin ':
+        Handelsnaam intermediair (sleutel):
+          type: string
+        Opdrachtnummer intermediair (sleutel):
+          type: string
+        Datum/tijd begin:
           type: string
           description: "De datum/tijd dat de tolkdienst daadwerkelijk is gestart\t\"Uit systeem service provider/intermediair (op afstand)\nDoor tolk in te vullen (op locatie)\"\n"
         Datum/tijd eind:
           type: string
           description: "De datum/tijd dat de tolkdienst daadwerkelijk is geeindigd\t\"Uit systeem service provider/intermediair (op afstand)\nDoor tolk in te vullen (op locatie)\"\n"
+      required:
+        - Handelsnaam intermediair (sleutel)
+        - Opdrachtnummer intermediair (sleutel)
+        - Datum/tijd begin
+        - Datum/tijd eind
     Accorderen-prestatie:
       title: Accorderen-prestatie
       type: object
@@ -319,9 +331,15 @@ components:
 
         De sleutels zijn Handelsnaam intermediair (module Algemeen) en Opdrachtnummer intermediair (module Matchen)
       properties:
+        Handelsnaam intermediair (sleutel):
+          type: string
+        Opdrachtnummer intermediair (sleutel):
+          type: string
         Prestatie akkoord verklaarder:
           type: string
       required:
+        - Handelsnaam intermediair (sleutel)
+        - Opdrachtnummer intermediair (sleutel)
         - Prestatie akkoord verklaarder
   securitySchemes:
     API Key - 1:
