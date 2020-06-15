@@ -3,7 +3,7 @@ info:
   title: tolken api
   version: '0.2'
   description: |-
-    API voor gegevensuitwisseling tussen rijksonderdelen en tolken intermediairs (versie 3.2 Gegevensset)
+    API voor gegevensuitwisseling tussen rijksonderdelen en tolken intermediairs (versie 3.3 Gegevensset)
 
     Algemene afspraken:
     Datum/tijd-veld gebruiken als timestamp eejjmmddhhmmmsmsms (eeuw jaar maand dag uur minuut miliseconde)
@@ -197,7 +197,7 @@ components:
           description: "\"De te tolken taal conform Rbtv. Altijd van/naar Nederlands\nIndien niet-Nederlands, bv turks <-> engels dan handmatig afhandelen\"\tDoor besteller in te vullen, te kiezen uit lijst Rbtv, handmatig te overschrijven\n"
         Taalniveau gevraagd:
           type: string
-          description: "Het benodigde taalniveau voor de opdracht\tDoor besteller in te vullen/te selecteren\n"
+          description: "Het benodigde taalniveau voor de opdracht. Keuze B2 of C1.\tDoor besteller in te vullen/te selecteren"
         Specifieke vaardigheden:
           type: string
           description: "\"Relevante kavelcriteria: Medisch advies (IND); AG, GGD, Zorg (COA)\nMogelijk andere: Keuze uit gerechtstolk (OM) , gezondheidstolk (DJI), RvdK-tolk (RvdK), andere? Dit door intermediair te administreren want staat niet in RBTV! \nNB nu alleen specialisme voor gerechtstolk in RBTV! \"\tUit lijst of vrij tekstveld\n"
@@ -232,8 +232,8 @@ components:
           type: string
           description: "De datum/tijd van het geplande einde van de tolkdienst\tDoor besteller in te vullen\n"
         Voorbereidingstijd:
-          type: string
           description: "De duur van de voorbereidingstijd in minuten indien van toepassing\tDoor besteller in te vullen\n"
+          type: number
         Gesprekslocatie:
           type: string
           description: "In geval van tolken op locatie de locatie- & contactgegevens voor het te tolken gesprek\tDoor besteller in te vullen\n"
@@ -270,8 +270,18 @@ components:
     Matchen:
       title: Matchen
       type: object
-      description: "Matchingsvelden die doorgegeven worden aan besteller na het matchen tussen geplaatste bestellingsverzoek en wat beschikbaar is bij Intermediair. \n\nSleutelveldencombi: Identificatie besteller (module Bestellen) en Datum/tijd bestelling (module Bestellen). "
+      description: "Matchingsvelden die doorgegeven worden aan besteller na het matchen tussen geplaatste bestellingsverzoek en wat beschikbaar is bij Intermediair. \n\nSleutelveldencombi: Identificatie besteller (module Bestellen) en Datum/tijd bestelling (module Bestellen).\nVerder worden vanuit Matching de Algemene velden verplicht meegegeven (waarvan sommigen ´teruggegeven´) aan Betelorganisatie. "
       properties:
+        Contractnummer (Algemeen):
+          type: string
+        Naam intermediair (Algemeen):
+          type: string
+        Organisatie (Algemeen):
+          type: string
+        Onderdeel (Algemeen):
+          type: string
+        Subonderdeel (Algemeen):
+          type: string
         Identificatie besteller (sleutel):
           type: string
         Datum/tijd bestelling (sleutel):
@@ -320,6 +330,11 @@ components:
         Geslacht (Afwijkende levering):
           type: string
       required:
+        - Contractnummer (Algemeen)
+        - Naam intermediair (Algemeen)
+        - Organisatie (Algemeen)
+        - Onderdeel (Algemeen)
+        - Subonderdeel (Algemeen)
         - Identificatie besteller (sleutel)
         - Datum/tijd bestelling (sleutel)
         - Opdrachtnummer intermediair
@@ -342,6 +357,15 @@ components:
         Datum/tijd eind:
           type: string
           description: "De datum/tijd dat de tolkdienst daadwerkelijk is geeindigd\t\"Uit systeem service provider/intermediair (op afstand)\nDoor tolk in te vullen (op locatie)\"\n"
+        Naam tolk (Matchen):
+          type: string
+          description: Tijdens leveren van de prestatie zou het kunnen zjn dat een andere tolk optreedt
+        Rbtv-nummer (Matchen):
+          type: string
+          description: Tijdens leveren van de prestatie zou het kunnen zjn dat een andere tolk optreedt
+        Voorbereidingstijd (Bestellen):
+          type: string
+          description: Tijdens leveren van de prestatie zou het kunnen zjn dat een andere voorbereidingstijd benut is
       required:
         - Handelsnaam intermediair (sleutel)
         - Opdrachtnummer intermediair (sleutel)
