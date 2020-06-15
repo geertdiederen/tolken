@@ -2,7 +2,11 @@ openapi: 3.0.0
 info:
   title: tolken api
   version: '0.2'
-  description: API voor gegevensuitwisseling tussen rijksonderdelen en tolken intermediairs (versie 3.2 Gegevensset)
+  description: |-
+    API voor gegevensuitwisseling tussen rijksonderdelen en tolken intermediairs (versie 3.2 Gegevensset)
+
+    Algemene afspraken:
+    Datum/tijd-veld gebruiken als timestamp eejjmmddhhmmmsmsms (eeuw jaar maand dag uur minuut miliseconde)
   contact:
     name: Geert Diederen
 servers:
@@ -173,6 +177,12 @@ components:
       type: object
       description: "Bestellingsvelden Gegevensset Tolk- en Vertaaldiensten. Elke tolk-/vertaaldienst begint met het bestellen van een tolkdienst. In deze stap levert de besteller alle noodzakelijke gegevens voor het leveren van een tolkdienst. \n\nOnder deze stap wordt ook het wijzigen (Datum/tijd wijziging gevuld) en annuleren (Datum/tijd annulering gevuld) van een bestelling verstaan vanuit de besteller; N.B.: een wijziging of annulering(niet-levering) vanuit de Intermediair richting besteller wordt als afwijkende levering c.q. niet-levering gemeld (via matching module).\n\ncombisleutelvelden bij wijziging of annulering vanuit besteller naar Intermediair: Identificatie besteller en Datum/tijd bestelling, maar om API zo beknopt mogelijk en voor algemeen gebruik te houden moeten alle verplicht in te vullen velden worden meegegeven richting intermediair. "
       properties:
+        Organisatie:
+          type: string
+          description: "Algemeen veld.\n\n\"Organisatienaam benodigd voor autorisatie van de bestelling (\"\"NP\"\", \"\"IND\"\", \"\"COA\"\", \"\"OM\"\", \"\"RvR\"\", \"\"DT&V\"\", etc)\n\nEenmalig in te voeren bij installatie APP\"\t\"Liefst éénmaal invoeren bij configuratie voorziening\nAls basisigegeven beschikbaar stellen bij bestelling. \nEventueel overschrijven per bestelling\nMoet gestandaardiseerd worden tbv management info; de exacte notatie van dit veld wordt afgestemd in de implementatiefase\"\n"
+        Subonderdeel:
+          type: string
+          description: "Algemeen veld.\n\nVerbijzondering van de de gegevens bij Organisatie opdrachtgever, bijvoorbeeld een organisatie(onderdeel) of een afdeling \t\"Liefst éénmaal invoeren bij configuratie voorziening\nAls basisigegeven beschikbaar stellen bij bestelling. \nEventueel overschrijven per bestelling\nMoet gestandaardiseerd worden tbv management info; de exacte notatie van dit veld wordt afgestemd in de implementatiefase\"\n"
         Inkoopordernummer:
           type: string
           description: "Het inkoopordernummer van de opdracht\tLiefst selecteren uit te configureren selectielijst, door gebruiker te overschrijven\n"
@@ -243,6 +253,7 @@ components:
           type: string
           description: "\"De datum/tijd waarop de annnulering van de aanvraag de aanvraag bij de opdrachtnemer is binnengekomen\nAlleen invullen als er ook een annulering is, dan verplicht\"\tVastleggen\n"
       required:
+        - Organisatie
         - Inkoopordernummer
         - Leveringswijze gevraagd
         - Categorie gesprek
@@ -282,7 +293,10 @@ components:
           description: "\"\"\"telefonisch\"\"; \"\"op locatie\"\".\nMogelijk latere opties: \"\"conference call\"\"; \"\"video conference\"\"\"\tDoor intermediar in te vullen\n"
         Afwijkende levering:
           type: string
-          description: "\"De (afwijkend) te leveren dienst: taalniveau, specialisatie, geslachtsvoorkeur (m/v)\nOp het moment dat het voorkomt is het verplicht\"\tDoor intermediar in te vullen\n"
+          description: "\"De (afwijkend) te leveren dienst: taalniveau, specialisatie, geslachtsvoorkeur (m/v)\nOp het moment dat het voorkomt is het verplicht\"\tDoor intermediar in te vullen\n\nIn API is ingebouwd in model voor het matchen dat deze afwijking in de daarvoor bestemde velden opgenomen kunnen worden. De vraag is dan wat er nog in dit veld ´Afwijkende levering\ningevuld moet worden? Waarschijnlijkdt het een boolean veld (Ja / Nee) die default op ´Nee´ staat."
+        Motivatie afwijkende levering:
+          type: string
+          description: Motivatie
         Verklaring niet-leveren:
           type: string
           description: "\"Indien een Opdrachtnemer toch niet in staat is om een Tolkopdracht te leveren\nOp het moment dat het voorkomt is het verplicht\"\tZie DAP voor wanneer er sprake is van niet leveren\n"
@@ -295,6 +309,16 @@ components:
         Datum/tijd bevestiging:
           type: string
           description: "De datum/tijd waarop de tolkdienst bevestigd is\tUit systeem intermediair\n"
+        Rbtv-taal (Afwijkende levering):
+          type: string
+        Taalniveau (Afwijkende levering):
+          type: string
+        Specifieke vaardigheden (Afwijkende levering):
+          type: string
+        Screeningsniveau (Afwijkende levering):
+          type: string
+        Geslacht (Afwijkende levering):
+          type: string
       required:
         - Identificatie besteller (sleutel)
         - Datum/tijd bestelling (sleutel)
