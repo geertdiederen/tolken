@@ -15,7 +15,7 @@ paths:
   /bestellingen:
     parameters: []
     post:
-      summary: plaats bestelling bij intermediair
+      summary: Bestellingen (Post)
       operationId: post-bestellingen
       responses:
         '201':
@@ -100,7 +100,7 @@ paths:
             type: string
           in: header
     parameters: []
-  akkorderingen:
+  accorderingen:
     parameters:
       - required: true
     post:
@@ -152,7 +152,7 @@ components:
     Algemeen:
       title: Algemeen
       type: object
-      description: Algemene velden
+      description: 'Algemene velden (kan ws weg uit API, zijn al opgenomen bij verschillende andere modellen waar ze gebruikt worden)'
       properties:
         Contractnummer:
           type: string
