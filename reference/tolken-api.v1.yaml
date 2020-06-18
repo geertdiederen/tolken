@@ -366,7 +366,7 @@ components:
           description: Tijdens leveren van de prestatie zou het kunnen zjn dat een andere tolk optreedt
         Voorbereidingstijd (Bestellen):
           type: string
-          description: Tijdens leveren van de prestatie zou het kunnen zjn dat een andere voorbereidingstijd benut is
+          description: Tijdens leveren van de prestatie zou het kunnen zjn dat een andere voorbereidingstijd benut is. in minuten.
       required:
         - Handelsnaam intermediair (sleutel)
         - Opdrachtnummer intermediair (sleutel)
