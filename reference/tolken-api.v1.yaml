@@ -175,7 +175,7 @@ components:
     Bestellen:
       title: Bestellen
       type: object
-      description: "Bestellingsvelden Gegevensset Tolk- en Vertaaldiensten. Elke tolk-/vertaaldienst begint met het bestellen van een tolkdienst. In deze stap levert de besteller alle noodzakelijke gegevens voor het leveren van een tolkdienst. \n\nOnder deze stap wordt ook het wijzigen (Datum/tijd wijziging gevuld) en annuleren (Datum/tijd annulering gevuld) van een bestelling verstaan vanuit de besteller; N.B.: een wijziging of annulering(niet-levering) vanuit de Intermediair richting besteller wordt als afwijkende levering c.q. niet-levering gemeld (via matching module).\n\ncombisleutelvelden bij wijziging of annulering vanuit besteller naar Intermediair: Identificatie besteller en Datum/tijd bestelling, maar om API zo beknopt mogelijk en voor algemeen gebruik te houden moeten alle verplicht in te vullen velden worden meegegeven richting intermediair. "
+      description: "Bestellingsvelden Gegevensset Tolk- en Vertaaldiensten. Elke tolk-/vertaaldienst begint met het bestellen van een tolkdienst. In deze stap levert de besteller alle noodzakelijke gegevens voor het leveren van een tolkdienst. \n\nOnder deze stap wordt ook het wijzigen (Datum/tijd wijziging gevuld) en annuleren (Datum/tijd annulering gevuld) van een bestelling verstaan vanuit de besteller; N.B.: een wijziging of annulering(niet-levering) vanuit de Intermediair richting besteller wordt als afwijkende levering c.q. niet-levering gemeld (via matching module).\n\ncombisleutelvelden bij wijziging of annulering vanuit besteller naar Intermediair: Identificatie besteller en Datum/tijd bestelling, maar om API zo beknopt mogelijk en voor algemeen gebruik te houden moeten sowieso alle verplicht in te vullen velden worden meegegeven richting intermediair. "
       properties:
         Organisatie:
           type: string
@@ -188,7 +188,7 @@ components:
           description: "Het inkoopordernummer van de opdracht\tLiefst selecteren uit te configureren selectielijst, door gebruiker te overschrijven\n"
         Leveringswijze gevraagd:
           type: string
-          description: "\"\"\"telefonisch\"\"; \"\"op locatie\"\".\nMogelijk latere opties: \"\"conference call\"\"; \"\"video conference\"\"\"\tAls een gebruiker geautoriseerd is voor slechts één soort levering, kan dit afgeleid worden uit de autorisatie. Als een gebruikers voor beide soorten leveringen geauoriseerd is, zal dit opgeven moeten worden bij de bestelling.\n\n"
+          description: "\"\"\"telefonisch\"\"; \"\"op locatie\"\"; \"\"conference call\"\"; \"\"video conference\"\"\"\tAls een gebruiker geautoriseerd is voor slechts één soort levering, kan dit afgeleid worden uit de autorisatie. Als een gebruikers voor beide soorten leveringen geauoriseerd is, zal dit opgeven moeten worden bij de bestelling.\n\n"
         Categorie gesprek:
           type: string
           description: "\"In overeenstemming met de vastgestelde lijst in de PDC:\nCongres\nDelegaties\nGehoor\nGesprek\nGroepen/Bijeenkomsten\nInterceptie\nMedisch/Zorg\nAlgemeen\nRechtshulp\nSchrijftolk\nVerhoor\nVertalen\nZitting/Rechtszaak\nGebaren-/Lipleestolk\"\t\n\nIn overeenstemming met de vastgestelde lijst in de PDC. Als een gebruiker geautoriseerd is voor slechts één soort tolkdienst, kan dit afgeleid worden uit de autorisatie. Als een gebruikers geauoriseerd is voor meerdere tolkdienst, zal dit opgeven moeten worden bij de bestelling.\n\n"
@@ -300,7 +300,7 @@ components:
           description: "Het geleverde taalniveau voor de opdracht\tDoor intermediar in te vullen\n"
         Leveringswijze geleverd:
           type: string
-          description: "\"\"\"telefonisch\"\"; \"\"op locatie\"\".\nMogelijk latere opties: \"\"conference call\"\"; \"\"video conference\"\"\"\tDoor intermediar in te vullen\n"
+          description: "\"\"\"telefonisch\"\"; \"\"op locatie\"\"; \"\"conference call\"\"; \"\"video conference\"\"\"\tDoor intermediar in te vullen\n"
         Afwijkende levering:
           type: string
           description: "\"De (afwijkend) te leveren dienst: taalniveau, specialisatie, geslachtsvoorkeur (m/v)\nOp het moment dat het voorkomt is het verplicht\"\tDoor intermediar in te vullen\n\nIn API is ingebouwd in model voor het matchen dat deze afwijking in de daarvoor bestemde velden opgenomen kunnen worden. De vraag is dan wat er nog in dit veld ´Afwijkende levering\ningevuld moet worden? Waarschijnlijkdt het een boolean veld (Ja / Nee) die default op ´Nee´ staat."
@@ -341,6 +341,7 @@ components:
         - Naam tolk
         - Rbtv-nummer
         - Taalniveau geleverd
+        - Leveringswijze geleverd
         - Datum/tijd bevestiging
     Leveren-prestatie:
       title: Leveren prestatie
