@@ -1,12 +1,12 @@
 openapi: 3.0.0
 info:
   title: tolken api
-  version: '0.2'
+  version: '0.3'
   description: |-
-    API voor gegevensuitwisseling tussen rijksonderdelen en tolken intermediairs (versie 3.3 Gegevensset)
+    API voor gegevensuitwisseling tussen rijksonderdelen en tolken intermediairs (versie 3.5 Gegevensset)
 
     Algemene afspraken:
-    Datum/tijd-veld gebruiken als timestamp eejjmmddhhmmmsmsms (eeuw jaar maand dag uur minuut miliseconde)
+    Datum/tijd-veld gebruiken als timestamp eejjmmddhhmmmsmsms (eeuw jaar maand dag uur minuut milliseconde)
   contact:
     name: Geert Diederen
 servers:
@@ -156,10 +156,8 @@ components:
       properties:
         Contractnummer:
           type: string
-          description: |+
+          description: |
             ID vh contract waaronder de tolkdienst besteld / uitgevoerd is. Uit systeem intermediair. Verplicht in te vullen bij matchen geplande bestelling.
-
-
         Naam Intermediair:
           type: string
           description: "Handelsnaam van de Opdrachtnemer\tUit systeem intermediair\n"
@@ -175,7 +173,12 @@ components:
     Bestellen:
       title: Bestellen
       type: object
-      description: "Bestellingsvelden Gegevensset Tolk- en Vertaaldiensten. Elke tolk-/vertaaldienst begint met het bestellen van een tolkdienst. In deze stap levert de besteller alle noodzakelijke gegevens voor het leveren van een tolkdienst. \n\nOnder deze stap wordt ook het wijzigen (Datum/tijd wijziging gevuld) en annuleren (Datum/tijd annulering gevuld) van een bestelling verstaan vanuit de besteller; N.B.: een wijziging of annulering(niet-levering) vanuit de Intermediair richting besteller wordt als afwijkende levering c.q. niet-levering gemeld (via matching module).\n\ncombisleutelvelden bij wijziging of annulering vanuit besteller naar Intermediair: Identificatie besteller en Datum/tijd bestelling, maar om API zo beknopt mogelijk en voor algemeen gebruik te houden moeten sowieso alle verplicht in te vullen velden worden meegegeven richting intermediair. "
+      description: |-
+        Bestellingsvelden Gegevensset Tolk- en Vertaaldiensten. Elke tolk-/vertaaldienst begint met het bestellen van een tolkdienst. In deze stap levert de besteller alle noodzakelijke gegevens voor het leveren van een tolkdienst. 
+
+        Onder deze stap wordt ook het wijzigen (Datum/tijd wijziging gevuld) en annuleren (Datum/tijd annulering gevuld) van een bestelling verstaan vanuit de besteller; N.B.: een wijziging of annulering(niet-levering) vanuit de Intermediair richting besteller wordt als afwijkende levering c.q. niet-levering gemeld (via matching module).
+
+        combisleutelvelden bij wijziging of annulering vanuit besteller naar Intermediair: Identificatie besteller en Datum/tijd bestelling, maar om API zo beknopt mogelijk en voor algemeen gebruik te houden moeten sowieso alle verplicht in te vullen velden worden meegegeven richting intermediair. 
       properties:
         Organisatie:
           type: string
@@ -219,10 +222,10 @@ components:
         Naam besteller:
           type: string
           description: "\"Voor- + achternaam v.d. besteller (bij gepland bestellen)\nKan ook alias zijn\"\t\"Uit SAML bericht/bekend bij intermediair/in te voeren door besteller (liefst éénmaal bij configuratie)\n\"\n"
-        Telefoonnummer aanvrager:
+        Telefoonnummer besteller:
           type: string
           description: "\"Telefoonnummer van de besteller (bij gepland bestellen)\nKan ook algemeen nummer zijn\"\tUit SAML bericht/bekend bij intermediair/in te voeren door besteller (liefst éénmaal bij configuratie)\n"
-        Email aanvrager:
+        E-mail besteller:
           type: string
           description: "\"email van de besteller (bij gepland bestellen)\nKan ook alias of algemeen e-mail nummer zijn\"\tUit SAML bericht/bekend bij intermediair/in te voeren door besteller (liefst éénmaal bij configuratie)\n"
         Datum/tijd gepland begin:
@@ -260,8 +263,8 @@ components:
         - Rbtv-taal
         - Identificatie besteller
         - Naam besteller
-        - Telefoonnummer aanvrager
-        - Email aanvrager
+        - Telefoonnummer besteller
+        - E-mail besteller
         - Datum/tijd gepland begin
         - Datum/tijd gepland eind
         - Gesprekslocatie
@@ -270,7 +273,11 @@ components:
     Matchen:
       title: Matchen
       type: object
-      description: "Matchingsvelden die doorgegeven worden aan besteller na het matchen tussen geplaatste bestellingsverzoek en wat beschikbaar is bij Intermediair. \n\nSleutelveldencombi: Identificatie besteller (module Bestellen) en Datum/tijd bestelling (module Bestellen).\nVerder worden vanuit Matching de Algemene velden verplicht meegegeven (waarvan sommigen ´teruggegeven´) aan Betelorganisatie. "
+      description: |-
+        Matchingsvelden die doorgegeven worden aan besteller na het matchen tussen geplaatste bestellingsverzoek en wat beschikbaar is bij Intermediair. 
+
+        Sleutelveldencombi: Identificatie besteller (module Bestellen) en Datum/tijd bestelling (module Bestellen).
+        Verder worden vanuit Matching de Algemene velden verplicht meegegeven (waarvan sommigen ´teruggegeven´) aan Betelorganisatie. 
       properties:
         Contractnummer (Algemeen):
           type: string
@@ -303,13 +310,18 @@ components:
           description: "\"\"\"telefonisch\"\"; \"\"op locatie\"\"; \"\"conference call\"\"; \"\"video conference\"\"\"\tDoor intermediar in te vullen\n"
         Afwijkende levering:
           type: string
-          description: "\"De (afwijkend) te leveren dienst: taalniveau, specialisatie, geslachtsvoorkeur (m/v)\nOp het moment dat het voorkomt is het verplicht\"\tDoor intermediar in te vullen\n\nIn API is ingebouwd in model voor het matchen dat deze afwijking in de daarvoor bestemde velden opgenomen kunnen worden. De vraag is dan wat er nog in dit veld ´Afwijkende levering\ningevuld moet worden? Waarschijnlijkdt het een boolean veld (Ja / Nee) die default op ´Nee´ staat."
+          description: Door intermediair in te vullen
         Motivatie afwijkende levering:
           type: string
-          description: Motivatie
+          description: |-
+            (als ander taalniveau gematcht dan 1 van onderstaande verlicht op te geven)
+            Mogelijke opties zijn:
+            - Afwijking van besteld taalniveau a.g.v. spoedeisend werkzaamheden binnen een bepaald tijdsbestek
+            - Afwijking van besteld taalniveau a.g.v. een plotselinge piekbelasting
+            - Afwijking van besteld taalniveau a.g.v. de vraag naar uitzonderlijke talen(
         Verklaring niet-leveren:
           type: string
-          description: "\"Indien een Opdrachtnemer toch niet in staat is om een Tolkopdracht te leveren\nOp het moment dat het voorkomt is het verplicht\"\tZie DAP voor wanneer er sprake is van niet leveren\n"
+          description: "\"Indien een Opdrachtnemer toch niet in staat is om een Tolkopdracht te leveren\nOp het moment dat het voorkomt is het verplicht\"\tZie DAP voor wanneer er sprake is van niet leveren.\nMogelijke opties zijn:\n- Geen tolk in de bestelde taal\n- Geen tolk beschikbaar in de bestelde taal\n- Geen tolk beschikbaar in het overeengekomen/bestelde taalniveau\n- Geplande tolk uitgevallen wegens ziekte of zwaarwegende persoonlijke omstandigheden en er is geen / niet tijdig een andere geschikte tolk beschikbaar\n- Geplande tolk uitgevallen a.g.v. weers- of verkeersomstandigheden, omzetten naar een tolkdienstverlening op afstand is niet mogelijk\n"
         Inbelnummer:
           type: string
           description: "Telefoonnummer waarop gespreksvoerder dient in te bellen om tolksessie te starten\tUit systeem intermediair\n"
@@ -346,7 +358,10 @@ components:
     Leveren-prestatie:
       title: Leveren prestatie
       type: object
-      description: "De daadwerkelijke leveringsgegevens van de tolk-/vertaaldienst aan de bestelorganisatie èn hetzelfde wordt vervolgens gebruikt voor de accordering door de bestelorganisatie. \n\nDe sleutels zijn Handelsnaam Intermediair (module Algemeen) en Opdrachtnummer intermediair (module Matchen)"
+      description: |-
+        De daadwerkelijke leveringsgegevens van de tolk-/vertaaldienst aan de bestelorganisatie èn hetzelfde wordt vervolgens gebruikt voor de accordering door de bestelorganisatie. 
+
+        De sleutels zijn Handelsnaam Intermediair (module Algemeen) en Opdrachtnummer intermediair (module Matchen)
       properties:
         Handelsnaam intermediair (sleutel):
           type: string
