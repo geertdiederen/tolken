@@ -7,6 +7,8 @@ info:
 
     Algemene afspraken:
     Datum/tijd-veld gebruiken als timestamp eejjmmddhhmmmsmsms (eeuw jaar maand dag uur minuut milliseconde)
+
+    Eigenaarschap API: Rijksoverheid (Justitie en Veiligheid, DJI) 
   contact:
     name: Geert Diederen
 servers:
