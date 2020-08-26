@@ -42,10 +42,6 @@ paths:
           description: Service Unavailable
         '504':
           description: Gateway Timeout
-      parameters:
-        - schema:
-            type: string
-          in: query
       description: Plaats een bestelling voor een tolk of vertaler bij Intermediair
       requestBody:
         content:
