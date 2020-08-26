@@ -93,14 +93,7 @@ paths:
             schema:
               type: object
               properties: {}
-      parameters:
-        - schema:
-            type: string
-          in: header
-    parameters: []
   /accorderingen:
-    parameters:
-      - required: true
     post:
       summary: Accorderingen (Post)
       operationId: postakkorderingen
