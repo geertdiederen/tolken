@@ -214,9 +214,11 @@ components:
         Referentie opdrachtgever:
           type: string
           description: "Identificatie van de opdracht, in de meeste gevallen het zaak-/dossiernummer \tDoor besteller in te vullen\n"
-        Kostenplaats: 
+        Kostenplaats:
           type: string
-          description: "De kostenplaats waarop de kosten voor de tolkdienst bij de opdrachtgever geboekt moeten worden. Door aanvrager in te vullen, uit lijst te kiezen, vast af te spreken, mee te geven bij bestelling of mee te geven/bij te houden bij gebruikersadministratie."
+          description: |-
+            De kostenplaats waarop de kosten voor de tolkdienst bij de opdrachtgever geboekt moeten worden. 
+            Door aanvrager in te vullen, uit lijst te kiezen, vast af te spreken, mee te geven bij bestelling of mee te geven/bij te houden bij gebruikersadministratie.
         Identificatie besteller:
           type: string
           description: "Unieke identificatie van de besteller\t\"Af te stemmen tijdens de implementatie\n\"\n"
