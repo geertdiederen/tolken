@@ -1,9 +1,9 @@
 openapi: 3.0.0
 info:
   title: tolken api
-  version: '0.3'
+  version: '0.4'
   description: |-
-    API voor gegevensuitwisseling tussen rijksonderdelen en tolken intermediairs (versie 3.5 Gegevensset)
+    API voor gegevensuitwisseling tussen rijksonderdelen en tolken intermediairs (versie 3.6 Gegevensset)
 
     Algemene afspraken:
     Datum/tijd-veld gebruiken als timestamp eejjmmddhhmmmsmsms (eeuw jaar maand dag uur minuut milliseconde)
@@ -60,7 +60,7 @@ paths:
               properties: {}
           text/html:
             schema:
-              $ref: '#/components/schemas/Bestelling'
+              $ref: '#/components/schemas/Bestellen'
           multipart/form-data:
             schema:
               type: object
@@ -218,6 +218,9 @@ components:
         Referentie opdrachtgever:
           type: string
           description: "Identificatie van de opdracht, in de meeste gevallen het zaak-/dossiernummer \tDoor besteller in te vullen\n"
+        Kostenplaats: 
+          type: string
+          description: "De kostenplaats waarop de kosten voor de tolkdienst bij de opdrachtgever geboekt moeten worden. Door aanvrager in te vullen, uit lijst te kiezen, vast af te spreken, mee te geven bij bestelling of mee te geven/bij te houden bij gebruikersadministratie."
         Identificatie besteller:
           type: string
           description: "Unieke identificatie van de besteller\t\"Af te stemmen tijdens de implementatie\n\"\n"
@@ -263,6 +266,7 @@ components:
         - Leveringswijze gevraagd
         - Categorie gesprek
         - Rbtv-taal
+        - Kostenplaats
         - Identificatie besteller
         - Naam besteller
         - Telefoonnummer besteller
@@ -279,7 +283,7 @@ components:
         Matchingsvelden die doorgegeven worden aan besteller na het matchen tussen geplaatste bestellingsverzoek en wat beschikbaar is bij Intermediair. 
 
         Sleutelveldencombi: Identificatie besteller (module Bestellen) en Datum/tijd bestelling (module Bestellen).
-        Verder worden vanuit Matching de Algemene velden verplicht meegegeven (waarvan sommigen ´teruggegeven´) aan Betelorganisatie. 
+        Verder worden vanuit Matching de Algemene velden verplicht meegegeven (waarvan sommigen ´teruggegeven´) aan Bestelorganisatie. 
       properties:
         Contractnummer (Algemeen):
           type: string
