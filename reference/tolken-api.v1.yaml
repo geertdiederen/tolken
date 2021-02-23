@@ -1,9 +1,9 @@
 openapi: 3.0.0
 info:
   title: tolken api
-  version: '0.4'
+  version: '0.5'
   description: |-
-    API voor gegevensuitwisseling tussen rijksonderdelen en tolken intermediairs (versie 3.6 Gegevensset)
+    API voor gegevensuitwisseling tussen rijksonderdelen en tolken intermediairs (versie 3.7 Gegevensset)
 
     Algemene afspraken:
     Datum/tijd-veld gebruiken als timestamp eejjmmddhhmmmsmsms (eeuw jaar maand dag uur minuut milliseconde)
