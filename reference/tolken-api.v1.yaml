@@ -143,52 +143,81 @@ components:
     Algemeen:
       title: Algemeen
       type: object
-      description: 'Algemene velden (kan ws weg uit API, zijn al opgenomen bij verschillende andere modellen waar ze gebruikt worden)'
+      description: 'Algemene velden (ook opgenomen binnen andere modellen, maar ter referentie en tekstuele uitleg hier wel opgenomen. Model Algemeen wordt niet in een bericht gebruikt.'
       properties:
         Contractnummer:
           type: string
           description: |
-            ID vh contract waaronder de tolkdienst besteld / uitgevoerd is. Uit systeem intermediair. Verplicht in te vullen bij matchen geplande bestelling.
+            ID vh contract waaronder de tolkdienst besteld / uitgevoerd is. 
         Naam Intermediair:
           type: string
-          description: "Handelsnaam van de Opdrachtnemer\tUit systeem intermediair\n"
-        Departemenet:
+          description: "Handelsnaam van de Opdrachtnemer. Uniforme schrijfwijze\t\n"
+        Departement:
           type: string
-          description: "Departement waaronder de bestellende organisatie resorteert\tDe exacte notatie van dit veld wordt afgestemd in de implementatiefase\n"
+          description: |
+            "Departement waaronder de bestellende organisatie (veld 4) resorteert. 
+            Uitsluitend kiezen uit: ""FIN"", ""SZW"", ""AZ"", ""VWS"", ""EZK"", ""LNV"", ""IenW"", ""BZK"", ""BUZA"", ""JenV"", ""DEF"", ""OCW"", ""overig"" 
+            "
         Organisatie:
           type: string
-          description: "\"Organisatienaam benodigd voor autorisatie van de bestelling (\"\"NP\"\", \"\"IND\"\", \"\"COA\"\", \"\"OM\"\", \"\"RvR\"\", \"\"DT&V\"\", etc)\nEenmalig in te voeren bij installatie APP\"\t\"Liefst éénmaal invoeren bij configuratie voorziening\nAls basisigegeven beschikbaar stellen bij bestelling. \nEventueel overschrijven per bestelling\nMoet gestandaardiseerd worden tbv management info; de exacte notatie van dit veld wordt afgestemd in de implementatiefase\"\n"
+          description: |-
+            "Organisatienaam benodigd voor autorisatie van de bestelling (""NP"", ""IND"", ""COA"", ""OM"", ""RvR"", ""DT&V"", etc)
+
+            Uniforme naamgeving.
+        Onderdeel:
+          type: string
+          description: |
+            Verbijzondering van de gegevens bij veld 4 organisatie, bijvoorbeeld een organisatie(onderdeel) of een afdeling.
         Subonderdeel:
           type: string
-          description: "Verbijzondering van de de gegevens bij Organisatie opdrachtgever, bijvoorbeeld een organisatie(onderdeel) of een afdeling \t\"Liefst éénmaal invoeren bij configuratie voorziening\nAls basisigegeven beschikbaar stellen bij bestelling. \nEventueel overschrijven per bestelling\nMoet gestandaardiseerd worden tbv management info; de exacte notatie van dit veld wordt afgestemd in de implementatiefase\"\n"
+          description: |
+            Verbijzondering van de gegevens bij veld 4 onderdeel, bijvoorbeeld een afdeling of een team.
     Bestellen:
       title: Bestellen
       type: object
-      description: |-
-        Bestellingsvelden Gegevensset Tolk- en Vertaaldiensten. Elke tolk-/vertaaldienst begint met het bestellen van een tolkdienst. In deze stap levert de besteller alle noodzakelijke gegevens voor het leveren van een tolkdienst. 
+      description: |
+        Bestellingsvelden Gegevensset Tolkdiensten. Elke tolkdienst begint met het bestellen ervan. In deze stap levert de besteller alle noodzakelijke gegevens voor het leveren van een tolkdienst. 
 
         Onder deze stap wordt ook het wijzigen (Datum/tijd wijziging gevuld) en annuleren (Datum/tijd annulering gevuld) van een bestelling verstaan vanuit de besteller; N.B.: een wijziging of annulering(niet-levering) vanuit de Intermediair richting besteller wordt als afwijkende levering c.q. niet-levering gemeld (via matching module).
 
-        combisleutelvelden bij wijziging of annulering vanuit besteller naar Intermediair: Identificatie besteller en Datum/tijd bestelling, maar om API zo beknopt mogelijk en voor algemeen gebruik te houden moeten sowieso alle verplicht in te vullen velden worden meegegeven richting intermediair. 
+        De eerste 6 velden zijn de Algemeen velden (zie tekstuele uitleg per veld bij Model Algemeen)
       properties:
+        Contractnummer:
+          type: string
+          description: |
+            Algemeen veld.
+        Naam intermediair:
+          type: string
+          description: |
+            Algemeen veld.
+        Departement:
+          type: string
+          description: |
+            Algemeen veld.
         Organisatie:
           type: string
-          description: "Algemeen veld.\n\n\"Organisatienaam benodigd voor autorisatie van de bestelling (\"\"NP\"\", \"\"IND\"\", \"\"COA\"\", \"\"OM\"\", \"\"RvR\"\", \"\"DT&V\"\", etc)\n\nEenmalig in te voeren bij installatie APP\"\t\"Liefst éénmaal invoeren bij configuratie voorziening\nAls basisigegeven beschikbaar stellen bij bestelling. \nEventueel overschrijven per bestelling\nMoet gestandaardiseerd worden tbv management info; de exacte notatie van dit veld wordt afgestemd in de implementatiefase\"\n"
+          description: |
+            Algemeen veld.
+        Onderdeel:
+          type: string
+          description: |
+            Algemeen veld.
         Subonderdeel:
           type: string
-          description: "Algemeen veld.\n\nVerbijzondering van de de gegevens bij Organisatie opdrachtgever, bijvoorbeeld een organisatie(onderdeel) of een afdeling \t\"Liefst éénmaal invoeren bij configuratie voorziening\nAls basisigegeven beschikbaar stellen bij bestelling. \nEventueel overschrijven per bestelling\nMoet gestandaardiseerd worden tbv management info; de exacte notatie van dit veld wordt afgestemd in de implementatiefase\"\n"
+          description: |
+            Algemeen veld.
         Inkoopordernummer:
           type: string
           description: "Het inkoopordernummer van de opdracht\tLiefst selecteren uit te configureren selectielijst, door gebruiker te overschrijven\n"
         Leveringswijze gevraagd:
           type: string
           description: "\"\"\"telefonisch\"\"; \"\"op locatie\"\"; \"\"conference call\"\"; \"\"video conference\"\"\"\tAls een gebruiker geautoriseerd is voor slechts één soort levering, kan dit afgeleid worden uit de autorisatie. Als een gebruikers voor beide soorten leveringen geauoriseerd is, zal dit opgeven moeten worden bij de bestelling.\n\n"
-        Categorie gesprek:
+        Soort gesprek:
           type: string
-          description: "\"In overeenstemming met de vastgestelde lijst in de PDC:\nCongres\nDelegaties\nGehoor\nGesprek\nGroepen/Bijeenkomsten\nInterceptie\nMedisch/Zorg\nAlgemeen\nRechtshulp\nSchrijftolk\nVerhoor\nVertalen\nZitting/Rechtszaak\nGebaren-/Lipleestolk\"\t\n\nIn overeenstemming met de vastgestelde lijst in de PDC. Als een gebruiker geautoriseerd is voor slechts één soort tolkdienst, kan dit afgeleid worden uit de autorisatie. Als een gebruikers geauoriseerd is voor meerdere tolkdienst, zal dit opgeven moeten worden bij de bestelling.\n\n"
+          description: "\"Kies uit de volgende opties:\n\"\"Congres\"\", \"\"Delegaties\"\", \"\"Gehoor\"\", \"\"Gesprek\"\", \"\"Groepen/Bijeenkomsten\"\", \"\"Interceptie\"\", \"\"Medisch/Zorg\"\", \"\"Algemeen\"\", \"\"Rechtshulp\"\", \"\"Schrijftolk\"\", \"\"Verhoor\"\", \"\"Vertalen\"\", \"\"Zitting/Rechtszaak\"\", \"\"Gebaren-/Lipleestolk\"\"\"\tAls een besteller geautoriseerd is voor slechts één soort tolkopdracht kan dit afgeleid worden uit de autorisatie. Als een besteller geauoriseerd is voor meerdere soorten tolkopdrachten zal dit opgeven moeten worden bij de bestelling.\n"
         Rbtv-taal:
           type: string
-          description: "\"De te tolken taal conform Rbtv. Altijd van/naar Nederlands\nIndien niet-Nederlands, bv turks <-> engels dan handmatig afhandelen\"\tDoor besteller in te vullen, te kiezen uit lijst Rbtv, handmatig te overschrijven\n"
+          description: "\"De te tolken taal conform de taallijst van het Rbtv. Altijd van/naar Nederlands.\nIndien niet-Nederlands, bv turks <-> engels dan staat in dit veld de vreemde taal. In veld 'Specifieke vaardigheden'  kan dan de 'moedertaal' opgmenomen worden\"\tDoor besteller in te vullen door te kiezen uit lijst Rbtv, maar kan handmatig overschreven worden.\n\n"
         Taalniveau gevraagd:
           type: string
           description: "Het benodigde taalniveau voor de opdracht. Keuze B2 of C1.\tDoor besteller in te vullen/te selecteren"
@@ -197,21 +226,20 @@ components:
           description: "\"Relevante kavelcriteria: Medisch advies (IND); AG, GGD, Zorg (COA)\nMogelijk andere: Keuze uit gerechtstolk (OM) , gezondheidstolk (DJI), RvdK-tolk (RvdK), andere? Dit door intermediair te administreren want staat niet in RBTV! \nNB nu alleen specialisme voor gerechtstolk in RBTV! \"\tUit lijst of vrij tekstveld\n"
         Screeningsniveau:
           type: string
-          description: "\"Geen of wel screening benodigd\nStandaard: \"\"VOG80\"\", \nAdditioneel: IND verklaring\nAdditioneel: \"\"VGB\"\"; = Verklaring Geen Bezwaar (screening door NP)\"\tDoor besteller in te vullen\n"
+          description: "\"Voor de tolkopdracht is een screening van de tolk aanvullend op de VOG-80 nodig.\nKies uit:\n\"\"IND inpasbaarheidsverklaring\"\"\n \"\"VGB\"\"  (Verklaring Geen Bezwaar)\"\n\tDoor besteller in te vullen\n"
         Geslacht (voorkeur):
           type: string
-          description: "\"Optioneel kan een voorkeur worden opgegeven: \"\"m\"\" of \"\"v\"\"\nOverige voorkeuren, bijvoorbeeld cultureel worden als vrije tekst of mondeling doorgegeven\"\tDoor besteller in te vullen\n"
+          description: "\"Indien dit nodig is ten behoeve van het gesprek, kan een voorkeur worden opgegeven.\nKies uit:  \"\"m\"\" of \"\"v\"\"\n\"\tDoor besteller in te vullen\n"
         Aanvullende wensen:
           type: string
-          description: "\"Vrij teksveld waarin aanvullende wensen/voorkeuren opgegeven kunnen worden, bijvoorbeeld: \n- voorkeurstolk\n- vooraf overleg gewenst\n- nationaliteit e.d.\"\tDoor besteller in te vullen\n"
+          description: "\"Aanvullende wensen/voorkeuren opgegeven kunnen worden, bijvoorbeeld: \n- voorkeurstolk\n- vooraf overleg gewenst\n- nationaliteit e.d.\n- overige voorkeuren, bijvoorbeeld cultureel. \n\"\n\tDoor besteller in te vullen\n"
         Referentie opdrachtgever:
           type: string
           description: "Identificatie van de opdracht, in de meeste gevallen het zaak-/dossiernummer \tDoor besteller in te vullen\n"
         Kostenplaats:
           type: string
-          description: |-
-            De kostenplaats waarop de kosten voor de tolkdienst bij de opdrachtgever geboekt moeten worden. 
-            Door aanvrager in te vullen, uit lijst te kiezen, vast af te spreken, mee te geven bij bestelling of mee te geven/bij te houden bij gebruikersadministratie.
+          description: |
+            De kostenplaats waarop de kosten voor de tolkdienst bij de organisatie geboekt moeten worden. 
         Identificatie besteller:
           type: string
           description: "Unieke identificatie van de besteller\t\"Af te stemmen tijdens de implementatie\n\"\n"
@@ -238,7 +266,7 @@ components:
           description: "In geval van tolken op locatie de locatie- & contactgegevens voor het te tolken gesprek\tDoor besteller in te vullen\n"
         Naam gespreksvoerder:
           type: string
-          description: "\"Voor- + achternaam v.d. gespreksvoerder\nKan ook alias zijn\"\t\"Is de 'naam besteller' als gespreksvoerder de aanvraag doet\nKan ook alias zijn\"\n"
+          description: "\"Voor- en achternaam van de gespreksvoerder.\nKan ook alias zijn\"\tAls de gespreksvoerder de besteller is dan is de inhoud van dit veld gelijk aan veld 'Naam besteller'.\n\n"
         Info ten behoeve van tolk:
           type: string
           description: "Extra informatie die voor de tolk van belang is\tDoor besteller in te vullen\n"
@@ -247,15 +275,18 @@ components:
           description: "De datum/tijd waarop de aanvraag van de tolkdienst bij de opdrachtnemer is binnengekomen\tVastleggen\n"
         Datum/tijd wijziging:
           type: string
-          description: "\"De datum/tijd waarop de wijziging van de aanvraag bij de opdrachtnemer is binnengekomen\nAlleen invullen als er ook een wijziging is, dan verplicht\n\"\tVastleggen\n"
+          description: "\"De datum/tijd waarop de wijziging van de aanvraag bij de opdrachtnemer is binnengekomen\nAlleen invullen als er ook een wijziging is, dan verplicht\n\"\tVastleggen indien van toepassing\n"
         Datum/tijd annulering:
           type: string
-          description: "\"De datum/tijd waarop de annnulering van de aanvraag de aanvraag bij de opdrachtnemer is binnengekomen\nAlleen invullen als er ook een annulering is, dan verplicht\"\tVastleggen\n"
+          description: "\"De datum/tijd waarop de annnulering van de aanvraag de aanvraag bij de opdrachtnemer is binnengekomen\nAlleen invullen als er ook een annulering is, dan verplicht\"\tVastleggen indien van toepassing\n"
       required:
+        - Contractnummer
+        - Naam intermediair
+        - Departement
         - Organisatie
         - Inkoopordernummer
         - Leveringswijze gevraagd
-        - Categorie gesprek
+        - Soort gesprek
         - Rbtv-taal
         - Kostenplaats
         - Identificatie besteller
@@ -273,8 +304,7 @@ components:
       description: |-
         Matchingsvelden die doorgegeven worden aan besteller na het matchen tussen geplaatste bestellingsverzoek en wat beschikbaar is bij Intermediair. 
 
-        Sleutelveldencombi: Identificatie besteller (module Bestellen) en Datum/tijd bestelling (module Bestellen).
-        Verder worden vanuit Matching de Algemene velden verplicht meegegeven (waarvan sommigen ´teruggegeven´) aan Bestelorganisatie. 
+        De eerste 6 velden zijn de Algemeen velden (zie tekstuele uitleg per veld bij Model Algemeen)
       properties:
         Contractnummer (Algemeen):
           type: string
@@ -358,7 +388,7 @@ components:
       description: |-
         De daadwerkelijke leveringsgegevens van de tolk-/vertaaldienst aan de bestelorganisatie èn hetzelfde wordt vervolgens gebruikt voor de accordering door de bestelorganisatie. 
 
-        De sleutels zijn Handelsnaam Intermediair (module Algemeen) en Opdrachtnummer intermediair (module Matchen)
+        De eerste 6 velden zijn de Algemeen velden (zie tekstuele uitleg per veld bij Model Algemeen)
       properties:
         Handelsnaam intermediair (sleutel):
           type: string
@@ -390,7 +420,7 @@ components:
       description: |-
         Het accorderen van de geleverde prestatie vindt plaats door de bestelorganisatie (Rijksonderdeel).
 
-        De sleutels zijn Handelsnaam intermediair (module Algemeen) en Opdrachtnummer intermediair (module Matchen)
+        De eerste 6 velden zijn de Algemeen velden (zie tekstuele uitleg per veld bij Model Algemeen)
       properties:
         Handelsnaam intermediair (sleutel):
           type: string
