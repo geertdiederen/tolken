@@ -304,28 +304,38 @@ components:
       description: |-
         Matchingsvelden die doorgegeven worden aan besteller na het matchen tussen geplaatste bestellingsverzoek en wat beschikbaar is bij Intermediair. 
 
-        De eerste 6 velden zijn de Algemeen velden (zie tekstuele uitleg per veld bij Model Algemeen)
+        De eerste 6 velden zijn de Algemeen velden (zie tekstuele uitleg per veld bij Model Algemeen), en het 7e veld 'Referentie opdrachtgever' is van model ' Bestellen'
       properties:
-        Contractnummer (Algemeen):
+        Contractnummer:
           type: string
-        Naam intermediair (Algemeen):
+          description: zie Model Algemeen voor uitleg.
+        Naam intermediair:
           type: string
-        Organisatie (Algemeen):
+          description: zie Model Algemeen voor uitleg.
+        Departement:
           type: string
-        Onderdeel (Algemeen):
+          description: zie Model Algemeen voor uitleg.
+        Organisatie:
           type: string
-        Subonderdeel (Algemeen):
+          description: zie Model Algemeen voor uitleg.
+        Onderdeel:
           type: string
-        Identificatie besteller (sleutel):
+          description: zie Model Algemeen voor uitleg.
+        Subonderdeel:
           type: string
-        Datum/tijd bestelling (sleutel):
+          description: zie Model Algemeen voor uitleg.
+        Referentie opdrachtgever:
           type: string
+          description: zie Model Bestellen voor uitleg.
+        Datum/tijd bestelling:
+          type: string
+          description: zie Model Bestellen voor uitleg.
         Opdrachtnummer intermediair:
           type: string
-          description: "Unieke identificatie van de bestelling/opdracht (=opdrachtnummer)\t\"Door intermediair toegekende identificatie van\nopdracht. Automatisch bepaald.\"\n"
+          description: "Unieke identificatie van de tolkopdracht\t\"Door intermediair toegekende unieke identificatie van\ntolkopdracht. \"\n\n"
         Naam tolk:
           type: string
-          description: "Naam van de tolk (of rbtv nr), zodat opdrachtgever weet met wie hij/zij te maken heeft\tUit systeem intermediair (bron RBTV)\n"
+          description: "Naam van de tolk voor een tolkopdracht op locatie, zodat de organisatie weet met wie hij/zij te maken heeft\tUit systeem intermediair \n\n\n"
         Rbtv-nummer:
           type: string
           description: "Het Rbtv nummer van de tolk\tUit systeem Rbtv of geen invoer\n"
@@ -369,13 +379,12 @@ components:
         Geslacht (Afwijkende levering):
           type: string
       required:
-        - Contractnummer (Algemeen)
-        - Naam intermediair (Algemeen)
-        - Organisatie (Algemeen)
-        - Onderdeel (Algemeen)
-        - Subonderdeel (Algemeen)
-        - Identificatie besteller (sleutel)
-        - Datum/tijd bestelling (sleutel)
+        - Contractnummer
+        - Naam intermediair
+        - Departement
+        - Organisatie
+        - Referentie opdrachtgever
+        - Datum/tijd bestelling
         - Opdrachtnummer intermediair
         - Naam tolk
         - Rbtv-nummer
