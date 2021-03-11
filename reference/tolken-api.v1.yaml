@@ -50,8 +50,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Bestellen'
-            examples:
-              example-1: {}
           application/xml:
             schema:
               type: object
