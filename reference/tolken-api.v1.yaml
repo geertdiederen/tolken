@@ -218,13 +218,15 @@ components:
           description: "\"Kies uit de volgende opties:\n\"\"Congres\"\", \"\"Delegaties\"\", \"\"Gehoor\"\", \"\"Gesprek\"\", \"\"Groepen/Bijeenkomsten\"\", \"\"Interceptie\"\", \"\"Medisch/Zorg\"\", \"\"Algemeen\"\", \"\"Rechtshulp\"\", \"\"Schrijftolk\"\", \"\"Verhoor\"\", \"\"Vertalen\"\", \"\"Zitting/Rechtszaak\"\", \"\"Gebaren-/Lipleestolk\"\"\"\tAls een besteller geautoriseerd is voor slechts één soort tolkopdracht kan dit afgeleid worden uit de autorisatie. Als een besteller geauoriseerd is voor meerdere soorten tolkopdrachten zal dit opgeven moeten worden bij de bestelling.\n"
         Rbtv-taal:
           type: string
-          description: "\"De te tolken taal conform de taallijst van het Rbtv. Altijd van/naar Nederlands.\nIndien niet-Nederlands, bv turks <-> engels dan staat in dit veld de vreemde taal. In veld 'Specifieke vaardigheden'  kan dan de 'moedertaal' opgmenomen worden\"\tDoor besteller in te vullen door te kiezen uit lijst Rbtv, maar kan handmatig overschreven worden.\n\n"
+          description: "\"De te tolken taal conform de taallijst van het Rbtv. Altijd van/naar Nederlands.\nIndien niet-Nederlands, bv Turks <-> engels dan staat  dit veld de vreemde taal. In veld 'Specifieke vaardigheden'  kan dan de 'moedertaal' opgmenomen worden\"\tDoor besteller in te vullen door te kiezen uit lijst Rbtv, maar kan handmatig overschreven worden."
         Taalniveau gevraagd:
           type: string
           description: "Het benodigde taalniveau voor de opdracht. Keuze B2 of C1.\tDoor besteller in te vullen/te selecteren"
         Specifieke vaardigheden:
           type: string
-          description: "\"Relevante kavelcriteria: Medisch advies (IND); AG, GGD, Zorg (COA)\nMogelijk andere: Keuze uit gerechtstolk (OM) , gezondheidstolk (DJI), RvdK-tolk (RvdK), andere? Dit door intermediair te administreren want staat niet in RBTV! \nNB nu alleen specialisme voor gerechtstolk in RBTV! \"\tUit lijst of vrij tekstveld\n"
+          description: |
+            Specifieke tolkvaardigheden die eventueel nodig zijn voor uitvoering van de tolkopdracht.
+            Uit lijst of vrij tekstveld
         Screeningsniveau:
           type: string
           description: "\"Voor de tolkopdracht is een screening van de tolk aanvullend op de VOG-80 nodig.\nKies uit:\n\"\"IND inpasbaarheidsverklaring\"\"\n \"\"VGB\"\"  (Verklaring Geen Bezwaar)\"\n\tDoor besteller in te vullen\n"
