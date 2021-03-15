@@ -241,8 +241,9 @@ components:
           description: "Identificatie van de opdracht, in de meeste gevallen het zaak-/dossiernummer \tDoor besteller in te vullen\n"
         Kostenplaats:
           type: string
-          description: |
+          description: |-
             De kostenplaats waarop de kosten voor de tolkdienst bij de organisatie geboekt moeten worden. 
+            Door besteller in te vullen.
         Identificatie besteller:
           type: string
           description: "Unieke identificatie van de besteller\t\"Af te stemmen tijdens de implementatie\n\"\n"
@@ -254,7 +255,7 @@ components:
           description: "\"Telefoonnummer van de besteller (bij gepland bestellen)\nKan ook algemeen nummer zijn\"\tUit SAML bericht/bekend bij intermediair/in te voeren door besteller (liefst éénmaal bij configuratie)\n"
         E-mail besteller:
           type: string
-          description: "\"email van de besteller (bij gepland bestellen)\nKan ook alias of algemeen e-mail nummer zijn\"\tUit SAML bericht/bekend bij intermediair/in te voeren door besteller (liefst éénmaal bij configuratie)\n"
+          description: "\"email van de besteller (bij gepland bestellen)\nKan ook algemeen e-mail nummer zijn\"\tUit SAML bericht/bekend bij intermediair/in te voeren door besteller (liefst éénmaal bij configuratie)\n"
         Datum/tijd gepland begin:
           type: string
           description: "De datum/tijd van het geplande begin van de tolkdienst\tDoor besteller in te vullen\n"
@@ -266,7 +267,7 @@ components:
           type: number
         Gesprekslocatie:
           type: string
-          description: "In geval van tolken op locatie de locatie- & contactgegevens voor het te tolken gesprek\tDoor besteller in te vullen\n"
+          description: "In geval van tolken op locatie de locatie- en contactgegevens voor het te tolken gesprek\tDoor besteller in te vullen\n"
         Naam gespreksvoerder:
           type: string
           description: "\"Voor- en achternaam van de gespreksvoerder.\nKan ook alias zijn\"\tAls de gespreksvoerder de besteller is dan is de inhoud van dit veld gelijk aan veld 'Naam besteller'.\n\n"
