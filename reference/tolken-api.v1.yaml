@@ -179,7 +179,9 @@ components:
 
         Onder deze stap wordt ook het wijzigen (Datum/tijd wijziging gevuld) en annuleren (Datum/tijd annulering gevuld) van een bestelling verstaan vanuit de besteller; N.B.: een wijziging of annulering(niet-levering) vanuit de Intermediair richting besteller wordt als afwijkende levering c.q. niet-levering gemeld (via matching module).
 
-        De eerste 6 velden zijn de Algemeen velden (zie tekstuele uitleg per veld bij Model Algemeen)
+        De eerste 6 velden zijn de Algemeen velden (zie tekstuele uitleg per veld bij Model Algemeen).
+
+        Let op: Een aantal velden die hier als niet verplicht staan, kunnen wel verplicht zijn om mee te geven bij een geplande of juist bij een ad hoc bestelling. Uit de gegevensset blijkt wanneer dat geldt.
       properties:
         Contractnummer:
           type: string
@@ -207,7 +209,7 @@ components:
             Algemeen veld.
         Inkoopordernummer:
           type: string
-          description: "Het inkoopordernummer van de opdracht\tLiefst selecteren uit te configureren selectielijst, door gebruiker te overschrijven\n"
+          description: "Het inkoopordernummer van de opdracht (unieke bestelidentificatie)\t\n"
         Leveringswijze gevraagd:
           type: string
           description: "\"\"\"telefonisch\"\"; \"\"op locatie\"\"; \"\"conference call\"\"; \"\"video conference\"\"\"\tAls een gebruiker geautoriseerd is voor slechts één soort levering, kan dit afgeleid worden uit de autorisatie. Als een gebruikers voor beide soorten leveringen geauoriseerd is, zal dit opgeven moeten worden bij de bestelling.\n\n"
@@ -287,15 +289,8 @@ components:
         - Leveringswijze gevraagd
         - Soort gesprek
         - Rbtv-taal
-        - Kostenplaats
         - Identificatie besteller
-        - Naam besteller
         - Telefoonnummer besteller
-        - E-mail besteller
-        - Datum/tijd gepland begin
-        - Datum/tijd gepland eind
-        - Gesprekslocatie
-        - Naam gespreksvoerder
         - Datum/tijd bestelling
     Matchen:
       title: Matchen
