@@ -179,7 +179,7 @@ components:
 
         Onder deze stap wordt ook het wijzigen (Datum/tijd wijziging gevuld) en annuleren (Datum/tijd annulering gevuld) van een bestelling verstaan vanuit de besteller; N.B.: een wijziging of annulering(niet-levering) vanuit de Intermediair richting besteller wordt als afwijkende levering c.q. niet-levering gemeld (via matching module).
 
-        De eerste 6 velden zijn de Algemeen velden (zie tekstuele uitleg per veld bij Model Algemeen). Ze zijn als niet verplicht aangemerkt (terwijl wel wenselijk geacht wordt vanuit software-architectuur en stuurinformatie, en het verkrijgen van uniforme managementinformatie dat de eerste 4 velden verplicht worden ingevuld.). 
+        De eerste 6 velden zijn de Algemeen velden (zie tekstuele uitleg per veld bij Model Algemeen). 4 ervan zijn als niet verplicht aangemerkt. 
 
         Let op: Een aantal velden die hier als niet verplicht staan, kunnen wel verplicht zijn om mee te geven bij een geplande of juist bij een ad hoc bestelling, dit is niet in de API aangegeven.
       properties:
@@ -284,6 +284,8 @@ components:
           type: string
           description: "\"De datum/tijd waarop de annnulering van de aanvraag de aanvraag bij de opdrachtnemer is binnengekomen\nAlleen invullen als er ook een annulering is, dan verplicht\"\tVastleggen indien van toepassing\n"
       required:
+        - Naam intermediair
+        - Organisatie
         - Inkoopordernummer
         - Leveringswijze gevraagd
         - Soort gesprek
@@ -354,6 +356,8 @@ components:
           type: string
           description: "De datum/tijd waarop de tolkdienst bevestigd is\tUit systeem intermediair\n"
       required:
+        - Naam intermediair
+        - Organisatie
         - Inkoopordernummer
         - Opdrachtnummer intermediair
         - Naam tolk
@@ -395,20 +399,13 @@ components:
           description: zie Model Matchen voor uitleg.
         Datum/tijd begin:
           type: string
-          description: "De datum/tijd dat de tolkdienst daadwerkelijk is gestart\t\"Uit systeem service provider/intermediair (op afstand)\nDoor tolk in te vullen (op locatie)\"\n"
+          description: "De datum/tijd dat detolkopdracht daadwerkelijk is gestart\t\"Uit systeem service provider/intermediair \n\"\n"
         Datum/tijd eind:
           type: string
-          description: "De datum/tijd dat de tolkdienst daadwerkelijk is geeindigd\t\"Uit systeem service provider/intermediair (op afstand)\nDoor tolk in te vullen (op locatie)\"\n"
-        Naam tolk (Matchen):
-          type: string
-          description: Tijdens leveren van de prestatie zou het kunnen zjn dat een andere tolk optreedt
-        Rbtv-nummer (Matchen):
-          type: string
-          description: Tijdens leveren van de prestatie zou het kunnen zjn dat een andere tolk optreedt
-        Voorbereidingstijd (Bestellen):
-          type: string
-          description: Tijdens leveren van de prestatie zou het kunnen zjn dat een andere voorbereidingstijd benut is. in minuten.
+          description: "De datum/tijd dat deTtolkopdracht daadwerkelijk is geeindigd\t\"Uit systeem service provider/intermediair \n\"\n\n"
       required:
+        - Naam intermediair
+        - Organisatie
         - Inkoopordernummer
         - Opdrachtnummer intermediair
         - Datum/tijd begin
@@ -419,18 +416,40 @@ components:
       description: |-
         Het accorderen van de geleverde prestatie vindt plaats door de bestelorganisatie (Rijksonderdeel).
 
-        De eerste 6 velden zijn de Algemeen velden (zie tekstuele uitleg per veld bij Model Algemeen)
+        De eerste 6 velden zijn de Algemeen velden (zie tekstuele uitleg per veld bij Model Algemeen), het 7e veld zie Model Bestellen, het 8e veld zie Model Matchen.
       properties:
-        Handelsnaam intermediair (sleutel):
+        Contractnummer:
           type: string
-        Opdrachtnummer intermediair (sleutel):
+          description: zie Model Algemeen voor uitleg.
+        Naam intermediair:
           type: string
-        Prestatie akkoord verklaarder:
+          description: zie Model Algemeen voor uitleg.
+        Departement:
           type: string
+          description: zie Model Algemeen voor uitleg.
+        Organisatie:
+          type: string
+          description: zie Model Algemeen voor uitleg.
+        Onderdeel:
+          type: string
+          description: zie Model Algemeen voor uitleg.
+        Subonderdeel:
+          type: string
+          description: zie Model Algemeen voor uitleg.
+        Inkoopordernummer:
+          type: string
+          description: zie Model Bestellen voor uitleg.
+        Opdrachtnummer intermediair:
+          type: string
+          description: zie Model Matchen voor uitleg.
+        Prestatie-akkoord verklaarder:
+          type: string
+          description: "\"Unieke identificatie van degene die het prestatie akkoord geeft vanuit de organisatie bij een tolkopdracht die op locatie is uitgevoerd\n\nVerplicht in te vullen bij een tolkopdracht op locatie.\"\t\"Af te stemmen tijdens de implementatie door DCM\n\"\n"
       required:
-        - Handelsnaam intermediair (sleutel)
-        - Opdrachtnummer intermediair (sleutel)
-        - Prestatie akkoord verklaarder
+        - Naam intermediair
+        - Organisatie
+        - Inkoopordernummer
+        - Opdrachtnummer intermediair
   securitySchemes:
     API Key - 1:
       name: API Key
