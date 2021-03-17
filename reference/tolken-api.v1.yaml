@@ -179,9 +179,9 @@ components:
 
         Onder deze stap wordt ook het wijzigen (Datum/tijd wijziging gevuld) en annuleren (Datum/tijd annulering gevuld) van een bestelling verstaan vanuit de besteller; N.B.: een wijziging of annulering(niet-levering) vanuit de Intermediair richting besteller wordt als afwijkende levering c.q. niet-levering gemeld (via matching module).
 
-        De eerste 6 velden zijn de Algemeen velden (zie tekstuele uitleg per veld bij Model Algemeen).
+        De eerste 6 velden zijn de Algemeen velden (zie tekstuele uitleg per veld bij Model Algemeen). Ze zijn als niet verplicht aangemerkt (terwijl wel wenselijk geacht wordt vanuit software-architectuur en stuurinformatie, en het verkrijgen van uniforme managementinformatie dat de eerste 4 velden verplicht worden ingevuld.). 
 
-        Let op: Een aantal velden die hier als niet verplicht staan, kunnen wel verplicht zijn om mee te geven bij een geplande of juist bij een ad hoc bestelling. Uit de gegevensset blijkt wanneer dat geldt.
+        Let op: Een aantal velden die hier als niet verplicht staan, kunnen wel verplicht zijn om mee te geven bij een geplande of juist bij een ad hoc bestelling, dit is niet in de API aangegeven.
       properties:
         Contractnummer:
           type: string
@@ -284,10 +284,6 @@ components:
           type: string
           description: "\"De datum/tijd waarop de annnulering van de aanvraag de aanvraag bij de opdrachtnemer is binnengekomen\nAlleen invullen als er ook een annulering is, dan verplicht\"\tVastleggen indien van toepassing\n"
       required:
-        - Contractnummer
-        - Naam intermediair
-        - Departement
-        - Organisatie
         - Inkoopordernummer
         - Leveringswijze gevraagd
         - Soort gesprek
@@ -301,7 +297,7 @@ components:
       description: |-
         Matchingsvelden die doorgegeven worden aan besteller na het matchen tussen geplaatste bestellingsverzoek en wat beschikbaar is bij Intermediair. 
 
-        De eerste 6 velden zijn de Algemeen velden (zie tekstuele uitleg per veld bij Model Algemeen), en het 7e veld 'Referentie opdrachtgever' is van model ' Bestellen'
+        De eerste 6 velden zijn de Algemeen velden (zie tekstuele uitleg per veld bij Model Algemeen), en het 7e veld 'Inkoopordernummer' is van model ' Bestellen'
       properties:
         Contractnummer:
           type: string
@@ -321,10 +317,7 @@ components:
         Subonderdeel:
           type: string
           description: zie Model Algemeen voor uitleg.
-        Referentie opdrachtgever:
-          type: string
-          description: zie Model Bestellen voor uitleg.
-        Datum/tijd bestelling:
+        Inkoopordernummer:
           type: string
           description: zie Model Bestellen voor uitleg.
         Opdrachtnummer intermediair:
@@ -335,53 +328,33 @@ components:
           description: "Naam van de tolk voor een tolkopdracht op locatie, zodat de organisatie weet met wie hij/zij te maken heeft\tUit systeem intermediair \n\n\n"
         Rbtv-nummer:
           type: string
-          description: "Het Rbtv nummer van de tolk\tUit systeem Rbtv of geen invoer\n"
+          description: "Het Rbtv nummer van de tolk\tUit systeem Rbtv of Noodlijst\n"
         Taalniveau geleverd:
           type: string
-          description: "Het geleverde taalniveau voor de opdracht\tDoor intermediar in te vullen\n"
+          description: "\"Het geleverde taalniveau voor de opdracht.\nKies uit:\n\"\"C1\"\", \"\"B2\"\", \"\"Noodlijst\"\"\"\tDoor intermediar in te vullen\n"
         Leveringswijze geleverd:
           type: string
           description: "\"\"\"telefonisch\"\"; \"\"op locatie\"\"; \"\"conference call\"\"; \"\"video conference\"\"\"\tDoor intermediar in te vullen\n"
         Afwijkende levering:
           type: string
-          description: Door intermediair in te vullen
+          description: "\"De (afwijkend) te leveren tolkopdracht. Kies uit:\"\"taalniveau\"\", \"\"taal Rbtv\"\", \"\"geslacht\"\", \"\"leveringswijze\"\", \"\"specifieke vaardigheden\"\"\nOp het moment dat het voorkomt is het verplicht\"\tDoor intermediar in te vullen\n"
         Motivatie afwijkende levering:
           type: string
-          description: |-
-            (als ander taalniveau gematcht dan 1 van onderstaande verlicht op te geven)
-            Mogelijke opties zijn:
-            - Afwijking van besteld taalniveau a.g.v. spoedeisend werkzaamheden binnen een bepaald tijdsbestek
-            - Afwijking van besteld taalniveau a.g.v. een plotselinge piekbelasting
-            - Afwijking van besteld taalniveau a.g.v. de vraag naar uitzonderlijke talen(
+          description: "\"Motivatieverklaring voor het leveren van een lager taalniveau dan besteld.\nKies uit: \"\"1\"\", \"\"2\"\", \"\"3\"\"\nOp het moment dat het voorkomt is het verplicht\"\t\"Mogelijke opties zijn:\n1 = Afwijking van besteld taalniveau a.g.v. spoedeisend van de werkzaamheden binnen een bepaald tijdsbestek\n2 = Afwijking van besteld taalniveau a.g.v. een plotselinge piekbelasting\n3 = Afwijking van besteld taalniveau a.g.v. de vraag naar uitzonderlijke talen\"\n"
         Verklaring niet-leveren:
           type: string
-          description: "\"Indien een Opdrachtnemer toch niet in staat is om een Tolkopdracht te leveren\nOp het moment dat het voorkomt is het verplicht\"\tZie DAP voor wanneer er sprake is van niet leveren.\nMogelijke opties zijn:\n- Geen tolk in de bestelde taal\n- Geen tolk beschikbaar in de bestelde taal\n- Geen tolk beschikbaar in het overeengekomen/bestelde taalniveau\n- Geplande tolk uitgevallen wegens ziekte of zwaarwegende persoonlijke omstandigheden en er is geen / niet tijdig een andere geschikte tolk beschikbaar\n- Geplande tolk uitgevallen a.g.v. weers- of verkeersomstandigheden, omzetten naar een tolkdienstverlening op afstand is niet mogelijk\n"
+          description: "\"Indien een Opdrachtnemer toch niet in staat is om een tolkopdracht te leveren.\nKies uit: \"\"1\"\", \"\"2\"\", \"\"3\"\", \"\"4\"\", \"\"5\"\"\nOp het moment dat het voorkomt is het verplicht\"\t\"Zie DAP voor wanneer er sprake is van niet leveren. Mogelijke opties zijn:\n1 = Geen tolk ingeschreven in de bestelde taal\n2 = Geen tolk beschikbaar in de bestelde taal\n3 = Geen tolk beschikbaar in het overeengekomen/bestelde taalniveau\n4 = Geplande tolk uitgevallen wegens ziekte of zwaarwegende persoonlijke omstandigheden en er is geen / niet tijdig een andere geschikte tolk beschikbaar\n5 = Geplande tolk uitgevallen a.g.v. weers- of verkeersomstandigheden, omzetten naar een tolkopdracht op afstand is niet mogelijk\"\n"
         Inbelnummer:
           type: string
-          description: "Telefoonnummer waarop gespreksvoerder dient in te bellen om tolksessie te starten\tUit systeem intermediair\n"
+          description: "Telefoonnummer waarop gespreksvoerder dient in te bellen om het tolkgesprek te starten\tUit systeem intermediair\n"
         Inloggegevens (video):
           type: string
-          description: "In geval van video-tolken. Wordt door intermediair verstrekt\tUit systeem intermediair\n"
+          description: "In geval van video-gesprek. Wordt door intermediair verstrekt\tUit systeem intermediair\n"
         Datum/tijd bevestiging:
           type: string
           description: "De datum/tijd waarop de tolkdienst bevestigd is\tUit systeem intermediair\n"
-        Rbtv-taal (Afwijkende levering):
-          type: string
-        Taalniveau (Afwijkende levering):
-          type: string
-        Specifieke vaardigheden (Afwijkende levering):
-          type: string
-        Screeningsniveau (Afwijkende levering):
-          type: string
-        Geslacht (Afwijkende levering):
-          type: string
       required:
-        - Contractnummer
-        - Naam intermediair
-        - Departement
-        - Organisatie
-        - Referentie opdrachtgever
-        - Datum/tijd bestelling
+        - Inkoopordernummer
         - Opdrachtnummer intermediair
         - Naam tolk
         - Rbtv-nummer
@@ -394,12 +367,32 @@ components:
       description: |-
         De daadwerkelijke leveringsgegevens van de tolk-/vertaaldienst aan de bestelorganisatie èn hetzelfde wordt vervolgens gebruikt voor de accordering door de bestelorganisatie. 
 
-        De eerste 6 velden zijn de Algemeen velden (zie tekstuele uitleg per veld bij Model Algemeen)
+        De eerste 6 velden zijn de Algemeen velden (zie tekstuele uitleg per veld bij Model Algemeen), het 7e veld zie Model Bestellen, het 8e veld zie Model Matchen.
       properties:
-        Handelsnaam intermediair (sleutel):
+        Contractnummer:
           type: string
-        Opdrachtnummer intermediair (sleutel):
+          description: zie Model Algemeen voor uitleg.
+        Naam intermediair:
           type: string
+          description: zie Model Algemeen voor uitleg.
+        Departement:
+          type: string
+          description: zie Model Algemeen voor uitleg.
+        Organisatie:
+          type: string
+          description: zie Model Algemeen voor uitleg.
+        Onderdeel:
+          type: string
+          description: zie Model Algemeen voor uitleg.
+        Subonderdeel:
+          type: string
+          description: zie Model Algemeen voor uitleg.
+        Inkoopordernummer:
+          type: string
+          description: zie Model Bestellen voor uitleg.
+        Opdrachtnummer intermediair:
+          type: string
+          description: zie Model Matchen voor uitleg.
         Datum/tijd begin:
           type: string
           description: "De datum/tijd dat de tolkdienst daadwerkelijk is gestart\t\"Uit systeem service provider/intermediair (op afstand)\nDoor tolk in te vullen (op locatie)\"\n"
@@ -416,8 +409,8 @@ components:
           type: string
           description: Tijdens leveren van de prestatie zou het kunnen zjn dat een andere voorbereidingstijd benut is. in minuten.
       required:
-        - Handelsnaam intermediair (sleutel)
-        - Opdrachtnummer intermediair (sleutel)
+        - Inkoopordernummer
+        - Opdrachtnummer intermediair
         - Datum/tijd begin
         - Datum/tijd eind
     Accorderen-prestatie:
