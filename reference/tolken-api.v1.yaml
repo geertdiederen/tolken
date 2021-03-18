@@ -3,7 +3,7 @@ info:
   title: tolken api
   version: '0.5'
   description: |-
-    API voor gegevensuitwisseling tussen rijksonderdelen en tolken intermediairs (versie 3.7 Gegevensset, 2021)
+    API voor gegevensuitwisseling tussen rijksonderdelen en tolken intermediairs (vanuit versie 3.7 Gegevensset, 2021)
 
     Zowel geplande als ad-hoc bestellingen vinden plaats. Als er velden zijn die bij de ad-hoc bestelling optioneel mee worden gegeven maar bij de geplande bestelling verplicht, dan is in de API voor dat betreffende veld gekozen voor optioneel en niet voor verplicht. Het is daarom noodzakelijk dat de gegevensset geraadpleegd wordt bij het inrichten van de systemen aan de Bestelzijde en aan de Intermediairzijde. Dit geldt voor alle 4 de POST-berichten in deze API.
 
@@ -44,7 +44,7 @@ paths:
           description: Service Unavailable
         '504':
           description: Gateway Timeout
-      description: Plaats een bestelling voor een tolk of vertaler bij Intermediair
+      description: Plaats een bestelling voor een tolk bij een Intermediair
       requestBody:
         content:
           application/json:
